@@ -1,0 +1,25 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:ErrorCode.ViewModels">
+
+
+	<DataTemplate DataType="{x:Type local:Overview}">
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" MinWidth="200" />
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="3*" MinWidth="200" />
+			</Grid.ColumnDefinitions>
+            
+            <ListBox Grid.Column="0"
+                     ItemsSource="{Binding Tests, Mode=OneWay}"
+                     AlternationCount="1" />
+
+			<GridSplitter Grid.Column="1" Width="3" ResizeBehavior="PreviousAndNext" ResizeDirection="Columns" />
+
+            
+            <TextBlock Grid.Column="2">Details go here.</TextBlock>
+		</Grid>
+	</DataTemplate>
+
+</ResourceDictionary>

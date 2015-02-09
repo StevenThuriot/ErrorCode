@@ -1,0 +1,32 @@
+﻿<controls:MetroWindow x:Class="ErrorCode.MainWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:local="clr-namespace:ErrorCode"
+                      mc:Ignorable="d"
+                      Title="ErrorCode" 
+                      Height="725" Width="1105"
+                      DataContext="{Binding RelativeSource={RelativeSource Self}, Mode=OneWay}"
+                      BorderThickness="1"
+                      BorderBrush="{Binding WindowTitleBrush, Mode=OneWay}"
+                      Icon="/Images/appbar.alien.png">
+	
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+    <ContentPresenter Grid.Row="1" Content="{Binding CurrentViewModel, Mode=OneWay}" Margin="2" />
+        
+          <Grid Grid.Row="1" Margin="0" Visibility="{Binding IsLoadingVisibility, Mode=OneWay}" 
+              Background="#B4B4B6" 
+              Opacity="0.5"
+              />
+
+        <ProgressBar Grid.Row="0" Visibility="{Binding IsLoadingVisibility, Mode=OneWay}"  
+                     IsIndeterminate="{Binding IsLoading, Mode=OneWay}" BorderThickness="0" />
+    </Grid>
+</controls:MetroWindow>
