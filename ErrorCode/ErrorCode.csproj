@@ -60,6 +60,21 @@
     </ApplicationDefinition>
     <Compile Include="Base\Notifyable.cs" />
     <Compile Include="Discover.cs" />
+    <Compile Include="Domain\Test.cs" />
+    <Compile Include="Domain\TestClass.cs" />
+    <Compile Include="Domain\TestResult.cs" />
+    <Compile Include="Invoker\Argument.cs" />
+    <Compile Include="Invoker\CallerSelector.cs" />
+    <Compile Include="Invoker\Constants.cs" />
+    <Compile Include="Invoker\InvokeHelper.cs" />
+    <Compile Include="Invoker\InvokeHelper.g.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InvokeHelper.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Invoker\MethodCaller.cs" />
+    <Compile Include="Invoker\SelectableArgument.cs" />
+    <Compile Include="Invoker\TypeInfo.cs" />
     <Compile Include="ViewModels\Overview.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -95,6 +110,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Invoker\InvokeHelper.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>InvokeHelper.g.cs</LastGenOutput>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -105,7 +124,9 @@
   <ItemGroup>
     <Resource Include="Images\appbar.alien.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

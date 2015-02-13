@@ -18,23 +18,34 @@
 
 #endregion
 
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Reflection;
-using ErrorCode.Domain;
 
-namespace ErrorCode
+namespace ErrorCode.Domain
 {
-    static class Discover
+    public class TestClass
     {
-        public static IReadOnlyCollection<TestClass> Tests(string assemblyFilter = "*test*.dll")
-        {
-            var tests = Directory.GetFiles(Directory.GetCurrentDirectory(), assemblyFilter)
-                                 .Select(Assembly.LoadFrom)
-                                 .SelectMany(assembly => assembly.GetTypes().Where(x => x.CustomAttributes.Any(a => a.GetType().Name == "TestClassAttribute")));
+        private readonly IReadOnlyList<Test> _tests;
+        private readonly Type _type;
 
-            return tests.Select(x => new TestClass(x)).ToArray();
+        public TestClass(Type type)
+        {
+            _type = type;
+            _tests = type.GetMethods()
+                         .Select(x => new Test(x))
+                         .Where(x => x.IsTestable)
+                         .ToArray();
+        }
+
+        public IReadOnlyList<TestResult> Run(double interval = 100d)
+        {
+            var instance = Activator.CreateInstance(_type);
+
+            var result = _tests.Select(x => x.Run(instance, interval))
+                               .ToArray();
+
+            return result;
         }
     }
 }
