@@ -61,6 +61,7 @@
     <Compile Include="Base\Notifyable.cs" />
     <Compile Include="Discover.cs" />
     <Compile Include="Domain\Test.cs" />
+    <Compile Include="Domain\TestAssembly.cs" />
     <Compile Include="Domain\TestClass.cs" />
     <Compile Include="Domain\TestResult.cs" />
     <Compile Include="Invoker\Argument.cs" />

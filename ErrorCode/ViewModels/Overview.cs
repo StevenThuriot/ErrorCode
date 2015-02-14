@@ -31,6 +31,6 @@ namespace ErrorCode.ViewModels
             Tests = Discover.Tests();
         }
 
-        public IEnumerable<TestClass> Tests { get; private set; }
+        public IEnumerable<TestAssembly> Tests { get; private set; }
     }
 }

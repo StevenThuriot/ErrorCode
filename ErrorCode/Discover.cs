@@ -28,13 +28,14 @@ namespace ErrorCode
 {
     static class Discover
     {
-        public static IReadOnlyCollection<TestClass> Tests(string assemblyFilter = "*test*.dll")
+        public static IReadOnlyCollection<TestAssembly> Tests(string assemblyFilter = "*test*.dll")
         {
             var tests = Directory.GetFiles(Directory.GetCurrentDirectory(), assemblyFilter)
                                  .Select(Assembly.LoadFrom)
-                                 .SelectMany(assembly => assembly.GetTypes().Where(x => x.CustomAttributes.Any(a => a.GetType().Name == "TestClassAttribute")));
+                                 .Select(x => new TestAssembly(x))
+                                 .ToArray();
 
-            return tests.Select(x => new TestClass(x)).ToArray();
+            return tests;
         }
     }
 }

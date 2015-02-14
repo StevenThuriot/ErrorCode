@@ -18,38 +18,34 @@
 
 #endregion
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace ErrorCode.Domain
 {
-    public class TestClass : IEnumerable<Test>
+    public class TestAssembly : IEnumerable<TestClass>
     {
-        private readonly IReadOnlyList<Test> _tests;
-        private readonly Type _type;
+        private readonly IReadOnlyList<TestClass> _tests;
 
-        public TestClass(Type type)
+        public TestAssembly(Assembly assembly)
         {
-            _type = type;
-            _tests = type.GetMethods()
-                         .Select(x => new Test(x))
-                         .Where(x => x.IsTestable)
-                         .ToArray();
+            _tests = assembly.GetTypes()
+                             .Where(x => x.CustomAttributes.Any(a => a.GetType().Name == "TestClassAttribute"))
+                             .Select(x => new TestClass(x))
+                             .ToArray();
         }
 
         public IReadOnlyList<TestResult> Run(double interval = 100d)
         {
-            var instance = Activator.CreateInstance(_type);
-
-            var result = _tests.Select(x => x.Run(instance, interval))
+            var result = _tests.SelectMany(x => x.Run(interval))
                                .ToArray();
 
             return result;
         }
 
-        public IEnumerator<Test> GetEnumerator()
+        public IEnumerator<TestClass> GetEnumerator()
         {
             return _tests.GetEnumerator();
         }
