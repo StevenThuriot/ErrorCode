@@ -52,6 +52,7 @@ namespace ErrorCode
 
         public MainWindow()
         {
+            UseLayoutRounding = true;
             InitializeComponent();
         }
 

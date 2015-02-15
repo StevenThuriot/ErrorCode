@@ -21,9 +21,9 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using ErrorCode.Extensions;
 using Invocation;
 
 namespace ErrorCode.Domain
@@ -35,9 +35,7 @@ namespace ErrorCode.Domain
 
         public Test(MethodInfo methodInfo)
         {
-            Name = methodInfo.Name.Skip(1)
-                             .Aggregate(methodInfo.Name[0].ToString(CultureInfo.InvariantCulture),
-                                        (current, next) => current + (char.IsUpper(next) ? " " : "") + next);
+            Name = methodInfo.Name.AsReadable();
 
             var comparer = StringComparer.OrdinalIgnoreCase;
 

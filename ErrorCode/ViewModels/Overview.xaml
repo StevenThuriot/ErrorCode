@@ -11,9 +11,9 @@
 				<ColumnDefinition Width="3*" MinWidth="200" />
 			</Grid.ColumnDefinitions>
             
-            <ListBox Grid.Column="0"
-                     ItemsSource="{Binding Tests, Mode=OneWay}"
-                     AlternationCount="1" />
+            <TreeView Grid.Column="0"
+                      ItemsSource="{Binding Tests, Mode=OneWay}"
+                      AlternationCount="1" />
 
 			<GridSplitter Grid.Column="1" Width="3" ResizeBehavior="PreviousAndNext" ResizeDirection="Columns" />
 

@@ -11,7 +11,7 @@
                       DataContext="{Binding RelativeSource={RelativeSource Self}, Mode=OneWay}"
                       BorderThickness="1"
                       BorderBrush="{Binding WindowTitleBrush, Mode=OneWay}"
-                      Icon="/Images/appbar.alien.png">
+                      Icon="/Resources/appbar.alien.png">
 	
     <Grid>
         <Grid.RowDefinitions>

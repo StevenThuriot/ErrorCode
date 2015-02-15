@@ -64,6 +64,7 @@
     <Compile Include="Domain\TestAssembly.cs" />
     <Compile Include="Domain\TestClass.cs" />
     <Compile Include="Domain\TestResult.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Invoker\Argument.cs" />
     <Compile Include="Invoker\CallerSelector.cs" />
     <Compile Include="Invoker\Constants.cs" />
@@ -77,6 +78,10 @@
     <Compile Include="Invoker\SelectableArgument.cs" />
     <Compile Include="Invoker\TypeInfo.cs" />
     <Compile Include="ViewModels\Overview.cs" />
+    <Page Include="Domain\Domain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -123,10 +128,31 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\appbar.alien.png" />
+    <Resource Include="Resources\appbar.alien.png" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\library_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\test_16.png" />
+    <Resource Include="Resources\test_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\library_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\class_16.png" />
+    <Resource Include="Resources\class_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\test_16_small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\test_16_green.png" />
+    <Resource Include="Resources\test_16_red.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
