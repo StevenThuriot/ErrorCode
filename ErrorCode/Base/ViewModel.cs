@@ -18,19 +18,16 @@
 
 #endregion
 
-using System.Collections.Generic;
-using ErrorCode.Base;
-using ErrorCode.Domain;
-
-namespace ErrorCode.ViewModels
+namespace ErrorCode.Base
 {
-    public class Overview : ViewModel<Overview>
+    public class ViewModel<T> : Notifyable
+        where T : ViewModel<T>
     {
-        public Overview()
+        public ViewModel()
         {
-            Tests = Discover.Tests();
+            Commands = new CommandsManager<T>(this);
         }
 
-        public IEnumerable<TestAssembly> Tests { get; private set; }
+        public dynamic Commands { get; private set; }
     }
 }

@@ -18,19 +18,26 @@
 
 #endregion
 
-using System.Collections.Generic;
-using ErrorCode.Base;
-using ErrorCode.Domain;
+using System.Threading.Tasks;
 
-namespace ErrorCode.ViewModels
+namespace ErrorCode.Base
 {
-    public class Overview : ViewModel<Overview>
+    public abstract class AsyncCommand<T> : Command<T> 
+        where T : ViewModel<T>
     {
-        public Overview()
+        public override sealed async void Execute(object parameter)
         {
-            Tests = Discover.Tests();
+            if (await OnExecute(parameter))
+            {
+                OnExecuteCompleted(parameter);
+            }
         }
 
-        public IEnumerable<TestAssembly> Tests { get; private set; }
+
+        protected abstract Task<bool> OnExecute(object parameter);
+
+        protected virtual void OnExecuteCompleted(object parameter)
+        {
+        }
     }
 }

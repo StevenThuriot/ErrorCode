@@ -18,6 +18,7 @@
 
 #endregion
 
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -34,12 +35,13 @@ namespace ErrorCode.Base
             handler.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        protected void ChangeProperty<T>(ref T orignal, T value, [CallerMemberName] string propertyName = null)
+        protected bool ChangeProperty<T>(ref T orignal, T value, [CallerMemberName] string propertyName = null)
         {
-            if (Equals(orignal, value)) return;
+            if (EqualityComparer<T>.Default.Equals(orignal, value)) return false;
 
             orignal = value;
             OnPropertyChanged(propertyName);
+            return true;
         }
     }
 }

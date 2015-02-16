@@ -18,19 +18,34 @@
 
 #endregion
 
-using System.Collections.Generic;
-using ErrorCode.Base;
-using ErrorCode.Domain;
+using System;
+using System.Windows.Input;
 
-namespace ErrorCode.ViewModels
+namespace ErrorCode.Base
 {
-    public class Overview : ViewModel<Overview>
+    public class Command<T> : ICommand
+        where T : ViewModel<T>
     {
-        public Overview()
+        public virtual bool CanExecute(object parameter)
         {
-            Tests = Discover.Tests();
+            return true;
         }
 
-        public IEnumerable<TestAssembly> Tests { get; private set; }
+        public virtual void Execute(object parameter)
+        {
+        }
+
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
+
+        public T ViewModel { get; private set; }
+
+        public void Init(T viewModel)
+        {
+            ViewModel = viewModel;
+        }
     }
 }

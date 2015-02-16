@@ -58,7 +58,11 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Compile Include="Base\AsyncCommand.cs" />
+    <Compile Include="Base\Command.cs" />
+    <Compile Include="Base\CommandsManager.cs" />
     <Compile Include="Base\Notifyable.cs" />
+    <Compile Include="Base\ViewModel.cs" />
     <Compile Include="Discover.cs" />
     <Compile Include="Domain\Test.cs" />
     <Compile Include="Domain\TestAssembly.cs" />
@@ -154,6 +158,7 @@
     <Resource Include="Resources\test_16_green.png" />
     <Resource Include="Resources\test_16_red.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
