@@ -58,6 +58,8 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Compile Include="Attributes\ExecutionTimeAttribute.cs" />
+    <Compile Include="Attributes\TestRunsAttribute.cs" />
     <Compile Include="Base\AsyncCommand.cs" />
     <Compile Include="Base\Command.cs" />
     <Compile Include="Base\CommandsManager.cs" />
