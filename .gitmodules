@@ -1,4 +1,4 @@
-[submodule "ErrorCode/Invoker"]
-	path = ErrorCode/Invoker
-	url = https://github.com/StevenThuriot/Invoker.git
+[submodule "Horizon"]
+	path = Horizon
+	url = https://github.com/StevenThuriot/Horizon.git
 	branch = master

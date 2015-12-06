@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using ErrorCode.Extensions;
-using Invocation;
+using Horizon;
 
 namespace ErrorCode.Domain
 {
@@ -22,12 +22,13 @@ namespace ErrorCode.Domain
             CustomAttributes = Attribute.GetCustomAttributes(methodInfo);
             IsTestable = CustomAttributes.Any(a => comparer.Equals(a.GetType().Name, "TestMethodAttribute"));
 
-            if (!IsTestable) return;
+            if (!IsTestable)
+                return;
 
             //Don't bother if it's not testable.
             _method = methodInfo.BuildLazy();
-            _expException =
-                CustomAttributes.FirstOrDefault(x => comparer.Equals(x.GetType().Name, "ExpectedExceptionAttribute"));
+
+            _expException = CustomAttributes.FirstOrDefault(x => comparer.Equals(x.GetType().Name, "ExpectedExceptionAttribute"));
         }
 
         public IReadOnlyList<Attribute> CustomAttributes { get; private set; }
@@ -36,7 +37,9 @@ namespace ErrorCode.Domain
 
         public TestResult Run(dynamic testClass, double interval)
         {
-            if (!IsTestable) return TestResult.Fault("Untestable.");
+            if (!IsTestable)
+                return TestResult.Fault("Untestable.");
+
             try
             {
                 var @delegate = _method.Value;
