@@ -8,6 +8,6 @@
             Commands = new CommandsManager<T>(this);
         }
 
-        public dynamic Commands { get; private set; }
+        public dynamic Commands { get; }
     }
 }

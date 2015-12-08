@@ -6,10 +6,7 @@ namespace ErrorCode.Base
     public class Command<T> : ICommand
         where T : ViewModel<T>
     {
-        public virtual bool CanExecute(object parameter)
-        {
-            return true;
-        }
+        public virtual bool CanExecute(object parameter) => true;
 
         public virtual void Execute(object parameter)
         {

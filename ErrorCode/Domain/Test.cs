@@ -2,38 +2,33 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
-using ErrorCode.Extensions;
 using Horizon;
 
 namespace ErrorCode.Domain
 {
-    public class Test
+    class Test
     {
         private readonly Attribute _expException;
-        private readonly Lazy<Delegate> _method;
+        private IMethodCaller _caller;
 
-        public Test(MethodInfo methodInfo)
+        public Test(IMethodCaller caller)
         {
-            Name = methodInfo.Name.AsReadable();
-
+            _caller = caller;
+            
             var comparer = StringComparer.OrdinalIgnoreCase;
 
-            CustomAttributes = Attribute.GetCustomAttributes(methodInfo);
+            CustomAttributes = Attribute.GetCustomAttributes(_caller.MethodInfo);
             IsTestable = CustomAttributes.Any(a => comparer.Equals(a.GetType().Name, "TestMethodAttribute"));
 
             if (!IsTestable)
-                return;
-
-            //Don't bother if it's not testable.
-            _method = methodInfo.BuildLazy();
-
+                return;//Don't bother if it's not testable.
+            
             _expException = CustomAttributes.FirstOrDefault(x => comparer.Equals(x.GetType().Name, "ExpectedExceptionAttribute"));
         }
 
-        public IReadOnlyList<Attribute> CustomAttributes { get; private set; }
-        public bool IsTestable { get; private set; }
-        public string Name { get; private set; }
+        public IReadOnlyList<Attribute> CustomAttributes { get; }
+        public bool IsTestable { get; }
+        public string Name => _caller.Name;
 
         public TestResult Run(dynamic testClass, double interval)
         {
@@ -42,14 +37,12 @@ namespace ErrorCode.Domain
 
             try
             {
-                var @delegate = _method.Value;
-
                 if (_expException != null)
                 {
-                    bool success = RunTestWithExpectedException(@delegate, testClass, _expException);
+                    bool success = RunTestWithExpectedException(testClass, _expException);
                     return new TestResult(success);
                 }
-                double totalMilliseconds = RunTest(@delegate, testClass, interval);
+                double totalMilliseconds = RunTest(testClass, interval);
                 var average = totalMilliseconds/interval;
 
                 return TestResult.Success(average);
@@ -62,10 +55,10 @@ namespace ErrorCode.Domain
         }
 
 
-        private static double RunTest(dynamic @delegate, dynamic test, double interval)
+        private double RunTest(dynamic test, double interval)
         {
             //Warmup
-            @delegate(test);
+            _caller.Call(test);
 
             // Clean up
             GC.Collect();
@@ -76,18 +69,18 @@ namespace ErrorCode.Domain
             var watch = Stopwatch.StartNew();
 
             for (var i = 0; i < interval; i++)
-                @delegate(test);
+                _caller.Call(test);
 
             watch.Stop();
 
             return watch.Elapsed.TotalMilliseconds;
         }
 
-        private static TestResult RunTestWithExpectedException(dynamic @delegate, dynamic test, Attribute expException)
+        private TestResult RunTestWithExpectedException(dynamic test, Attribute expException)
         {
             try
             {
-                @delegate(test);
+                _caller.Call(test);
                 return TestResult.Fault("Test did not throw expected Type.");
             }
             catch (Exception ex)

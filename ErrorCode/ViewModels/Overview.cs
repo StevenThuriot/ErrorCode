@@ -4,13 +4,13 @@ using ErrorCode.Domain;
 
 namespace ErrorCode.ViewModels
 {
-    public class Overview : ViewModel<Overview>
+    class Overview : ViewModel<Overview>
     {
         public Overview()
         {
             Tests = Discover.Tests();
         }
 
-        public IEnumerable<TestAssembly> Tests { get; private set; }
+        public IEnumerable<TestAssembly> Tests { get; }
     }
 }

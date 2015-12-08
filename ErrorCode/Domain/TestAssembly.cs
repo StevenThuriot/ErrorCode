@@ -6,11 +6,11 @@ using ErrorCode.Extensions;
 
 namespace ErrorCode.Domain
 {
-    public class TestAssembly : IReadOnlyList<TestClass>
+    class TestAssembly : IReadOnlyList<TestClass>
     {
         private readonly IReadOnlyList<TestClass> _tests;
 
-        public string Name { get; private set; }
+        public string Name { get; }
 
         public TestAssembly(Assembly assembly)
         {
@@ -31,21 +31,12 @@ namespace ErrorCode.Domain
         }
 
 
-        public IEnumerator<TestClass> GetEnumerator()
-        {
-            return _tests.GetEnumerator();
-        }
+        public IEnumerator<TestClass> GetEnumerator() => _tests.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public int Count { get { return _tests.Count; } }
+        public int Count => _tests.Count;
 
-        public TestClass this[int index]
-        {
-            get { return _tests[index]; }
-        }
+        public TestClass this[int index] => _tests[index];
     }
 }

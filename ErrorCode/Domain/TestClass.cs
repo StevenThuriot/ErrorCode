@@ -3,15 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ErrorCode.Extensions;
+using Horizon;
 
 namespace ErrorCode.Domain
 {
-    public class TestClass : IReadOnlyList<Test>
+    class TestClass : IReadOnlyList<Test>
     {
         private readonly IReadOnlyList<Test> _tests;
         private readonly Type _type;
 
-        public string Name { get; private set; }
+        public string Name { get; }
 
 
         public TestClass(Type type)
@@ -19,7 +20,8 @@ namespace ErrorCode.Domain
             _type = type;
             Name = type.Name.AsReadable();
 
-            _tests = type.GetMethods()
+
+            _tests = Info.Extended.Methods(type)
                          .Select(x => new Test(x))
                          .Where(x => x.IsTestable)
                          .ToArray();
@@ -35,21 +37,12 @@ namespace ErrorCode.Domain
             return result;
         }
 
-        public IEnumerator<Test> GetEnumerator()
-        {
-            return _tests.GetEnumerator();
-        }
+        public IEnumerator<Test> GetEnumerator() => _tests.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public int Count { get { return _tests.Count; } }
+        public int Count => _tests.Count;
 
-        public Test this[int index]
-        {
-            get { return _tests[index]; }
-        }
+        public Test this[int index] => _tests[index];
     }
 }
