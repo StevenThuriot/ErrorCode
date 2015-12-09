@@ -67,6 +67,7 @@
     <Compile Include="Base\Notifyable.cs" />
     <Compile Include="Base\ViewModel.cs" />
     <Compile Include="Discover.cs" />
+    <Compile Include="Domain\Constants.cs" />
     <Compile Include="Domain\Test.cs" />
     <Compile Include="Domain\TestAssembly.cs" />
     <Compile Include="Domain\TestClass.cs" />

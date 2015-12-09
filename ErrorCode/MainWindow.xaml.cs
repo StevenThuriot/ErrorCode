@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using ErrorCode.ViewModels;
 
 namespace ErrorCode
@@ -8,27 +9,14 @@ namespace ErrorCode
     /// </summary>
     public partial class MainWindow
     {
-        public static readonly DependencyProperty CurrentViewModelProperty =
-            DependencyProperty.Register("CurrentViewModel", typeof (object), typeof (MainWindow),
-                                        new PropertyMetadata(new Overview()));
+        public static readonly DependencyProperty CurrentViewModelProperty = DependencyProperty.Register("CurrentViewModel", typeof (object), typeof (MainWindow), new PropertyMetadata(new Overview()));
+        
+        public static readonly DependencyProperty IsLoadingProperty = DependencyProperty.Register("IsLoading", typeof (bool), typeof (MainWindow), new PropertyMetadata(false, OnIsLoadingChanged));
 
 
-        public static readonly DependencyProperty IsLoadingProperty = DependencyProperty.Register(
-                                                                                                  "IsLoading",
-                                                                                                  typeof (bool),
-                                                                                                  typeof (MainWindow),
-                                                                                                  new PropertyMetadata(
-                                                                                                      false,
-                                                                                                      OnIsLoadingChanged));
+        public static readonly DependencyPropertyKey IsLoadingVisibilityPropertyKey = DependencyProperty.RegisterReadOnly("IsLoadingVisibility", typeof (Visibility), typeof (MainWindow), new PropertyMetadata(Visibility.Collapsed));
 
-
-        public static readonly DependencyPropertyKey IsLoadingVisibilityPropertyKey = DependencyProperty
-            .RegisterReadOnly(
-                              "IsLoadingVisibility", typeof (Visibility), typeof (MainWindow),
-                              new PropertyMetadata(Visibility.Collapsed));
-
-        public static readonly DependencyProperty IsLoadingVisibilityProperty =
-            IsLoadingVisibilityPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty IsLoadingVisibilityProperty = IsLoadingVisibilityPropertyKey.DependencyProperty;
 
         public MainWindow()
         {

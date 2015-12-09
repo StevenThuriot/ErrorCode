@@ -30,7 +30,7 @@ namespace ErrorCode.Domain
         public bool IsTestable { get; }
         public string Name => _caller.Name;
 
-        public TestResult Run(dynamic testClass, double interval)
+        public TestResult Run(dynamic testClass, double interval = Constants.DefaultInterval)
         {
             if (!IsTestable)
                 return TestResult.Fault("Untestable.");

@@ -22,7 +22,7 @@ namespace ErrorCode.Domain
                              .ToArray();
         }
 
-        public IReadOnlyList<TestResult> Run(double interval = 100d)
+        public IReadOnlyList<TestResult> Run(double interval = Constants.DefaultInterval)
         {
             var result = _tests.SelectMany(x => x.Run(interval))
                                .ToArray();
