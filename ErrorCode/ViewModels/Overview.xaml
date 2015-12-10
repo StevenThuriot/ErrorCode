@@ -1,6 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:ErrorCode.ViewModels">
+                    xmlns:local="clr-namespace:ErrorCode.ViewModels"
+                    xmlns:err="clr-namespace:ErrorCode"
+                    xmlns:e="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                    xmlns:domain="clr-namespace:ErrorCode.Domain">
 
 
 	<DataTemplate DataType="{x:Type local:Overview}">
@@ -10,15 +13,31 @@
 				<ColumnDefinition Width="Auto" />
 				<ColumnDefinition Width="3*" MinWidth="200" />
 			</Grid.ColumnDefinitions>
-            
-            <TreeView Grid.Column="0"
+
+            <TreeView Grid.Column="0" x:Name="Tree"
                       ItemsSource="{Binding Tests, Mode=OneWay}"
-                      AlternationCount="1" />
+                      AlternationCount="1">
+
+                <!--<e:Interaction.Behaviors>
+                    <err:BindableSelectedItemBehavior SelectedItem="{Binding SelectedItem, Mode=TwoWay}" />
+                </e:Interaction.Behaviors>-->
+            </TreeView>
 
 			<GridSplitter Grid.Column="1" Width="3" ResizeBehavior="PreviousAndNext" ResizeDirection="Columns" />
 
-            
-            <TextBlock Grid.Column="2">Details go here.</TextBlock>
+            <ContentPresenter Grid.Column="2" Content="{Binding ElementName=Tree, Path=SelectedItem}" >
+                <ContentPresenter.Resources>
+                    <DataTemplate DataType="{x:Type domain:TestAssembly}">
+                        <TextBlock Text="{Binding Name, Mode=OneWay}" />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type domain:TestClass}">
+                        <TextBlock Text="{Binding Name, Mode=OneWay}" />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type domain:Test}">
+                        <TextBlock Text="{Binding Name, Mode=OneWay}" />
+                    </DataTemplate>
+                </ContentPresenter.Resources>
+            </ContentPresenter>
 		</Grid>
 	</DataTemplate>
 
