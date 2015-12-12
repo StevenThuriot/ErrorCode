@@ -37,6 +37,8 @@ namespace ErrorCode.Domain
 
         public int Count => _tests.Count;
 
+        public int TestCount => _tests.SelectMany(x => x).Count();
+
         public TestClass this[int index] => _tests[index];
     }
 }
