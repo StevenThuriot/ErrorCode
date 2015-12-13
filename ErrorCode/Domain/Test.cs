@@ -11,6 +11,8 @@ namespace ErrorCode.Domain
         private readonly Attribute _expException;
         private IMethodCaller _caller;
 
+        public TestResult TestResult { get; private set; }
+
         public Test(IMethodCaller caller)
         {
             _caller = caller;
@@ -30,7 +32,9 @@ namespace ErrorCode.Domain
         public bool IsTestable { get; }
         public string Name => _caller.Name;
 
-        public TestResult Run(dynamic testClass, double interval = Constants.DefaultInterval)
+        public TestResult Run(dynamic testClass, double interval = Constants.DefaultInterval) => TestResult = RunInternal(testClass, interval);
+
+        private TestResult RunInternal(dynamic testClass, double interval)
         {
             if (!IsTestable)
                 return TestResult.Fault("Untestable.");
@@ -43,7 +47,7 @@ namespace ErrorCode.Domain
                     return new TestResult(success);
                 }
                 double totalMilliseconds = RunTest(testClass, interval);
-                var average = totalMilliseconds/interval;
+                var average = totalMilliseconds / interval;
 
                 return TestResult.Success(average);
             }
@@ -53,7 +57,6 @@ namespace ErrorCode.Domain
                 return TestResult.Fault("Unexpected error: " + ex.Message);
             }
         }
-
 
         private double RunTest(dynamic test, double interval)
         {

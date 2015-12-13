@@ -43,9 +43,20 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Image Grid.Column="0" Source="/Resources/test_16.png" />
+            <Image x:Name="_icon" Grid.Column="0" Source="/Resources/test_16.png" />
             <TextBlock Grid.Column="1" Text="{Binding Name, Mode=OneWay}" />
         </Grid>
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding TestResult.Succeeded}" Value="True">
+                <Setter TargetName="_icon" Property="Source" Value="/Resources/test_16_green.png" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TestResult.Succeeded}" Value="False">
+                <Setter TargetName="_icon" Property="Source" Value="/Resources/test_16_red.png" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TestResult}" Value="{x:Null}">
+                <Setter TargetName="_icon" Property="Source" Value="/Resources/test_16.png" />
+            </DataTrigger>
+        </DataTemplate.Triggers>
     </DataTemplate>
     
 </ResourceDictionary>
