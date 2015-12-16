@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Horizon;
+using System.Text.RegularExpressions;
 
 namespace ErrorCode.Domain
 {
@@ -31,6 +32,9 @@ namespace ErrorCode.Domain
         public IReadOnlyList<Attribute> CustomAttributes { get; }
         public bool IsTestable { get; }
         public string Name => _caller.Name;
+        
+        static readonly Regex readableNameRegex = new Regex(@"(?<!^)([A-Z])|(_)", RegexOptions.Compiled);        
+        public string ReadableName => readableNameRegex.Replace(Name, @" $1");
 
         public TestResult Run(dynamic testClass, double interval = Constants.DefaultInterval) => TestResult = RunInternal(testClass, interval);
 
