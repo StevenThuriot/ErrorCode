@@ -29,7 +29,7 @@ namespace ErrorCode.Domain
 
         public IReadOnlyList<TestResult> Run(double interval = Constants.DefaultInterval)
         {
-            var instance = Activator.CreateInstance(_type);
+            var instance = (object) Info.Create(_type);
 
             var result = _tests.Select(x => x.Run(instance, interval))
                                .ToArray();

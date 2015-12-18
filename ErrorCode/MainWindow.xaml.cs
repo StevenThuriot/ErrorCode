@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using ErrorCode.ViewModels;
+using System.Collections.ObjectModel;
 
 namespace ErrorCode
 {
@@ -9,7 +10,7 @@ namespace ErrorCode
     /// </summary>
     public partial class MainWindow
     {
-        public static readonly DependencyProperty CurrentViewModelProperty = DependencyProperty.Register("CurrentViewModel", typeof (object), typeof (MainWindow), new PropertyMetadata(new Overview()));
+        public static readonly DependencyProperty CurrentViewModelProperty = DependencyProperty.Register("CurrentViewModel", typeof (object), typeof (MainWindow));
         
         public static readonly DependencyProperty IsLoadingProperty = DependencyProperty.Register("IsLoading", typeof (bool), typeof (MainWindow), new PropertyMetadata(false, OnIsLoadingChanged));
 
@@ -22,6 +23,19 @@ namespace ErrorCode
         {
             UseLayoutRounding = true;
             InitializeComponent();
+        }
+
+        protected override void OnInitialized(EventArgs e)
+        {
+            base.OnInitialized(e);
+
+            LeftWindowCommands = new MahApps.Metro.Controls.WindowCommands();
+            LeftWindowCommands.ItemsSource = new ObservableCollection<UIElement>();
+
+            RightWindowCommands = new MahApps.Metro.Controls.WindowCommands();
+            RightWindowCommands.ItemsSource = new ObservableCollection<UIElement>();
+
+            CurrentViewModel = new Overview();
         }
 
         public object CurrentViewModel

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Threading;
 
 namespace ErrorCode
@@ -23,8 +25,6 @@ namespace ErrorCode
                 if (dispatcher == null)
                     return;
                 
-                var action = new Action<MainWindow, bool>((w, b) => w.IsLoading = b);
-
                 DispatcherPriority priority;
 
                 if (value)
@@ -42,10 +42,9 @@ namespace ErrorCode
                     priority = DispatcherPriority.Loaded;
                 }
                 
-                dispatcher.BeginInvoke(priority, action, Window, value);
+                dispatcher.BeginInvoke(priority, new Action<MainWindow, bool>((w, b) => w.IsLoading = b), Window, value);
             }
         }
-
 
         class LoadingHelper : IDisposable
         {
@@ -65,5 +64,9 @@ namespace ErrorCode
                 IsLoading = false;
             }
         }
+
+
+        public static ObservableCollection<UIElement> LeftWindowControls => (Window.LeftWindowCommands.ItemsSource) as ObservableCollection<UIElement>;
+        public static ObservableCollection<UIElement> RightWindowControls => (Window.RightWindowCommands.ItemsSource) as ObservableCollection<UIElement>;
     }
 }
