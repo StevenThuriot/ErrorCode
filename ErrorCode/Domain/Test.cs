@@ -4,15 +4,21 @@ using System.Diagnostics;
 using System.Linq;
 using Horizon;
 using System.Text.RegularExpressions;
+using ErrorCode.Base;
 
 namespace ErrorCode.Domain
 {
-    class Test
+    class Test : Notifyable
     {
         private readonly Attribute _expException;
         private IMethodCaller _caller;
 
-        public TestResult TestResult { get; private set; }
+        TestResult _testResult;
+        public TestResult TestResult
+        {
+            get { return _testResult; }
+            set { ChangeProperty(ref _testResult, value); }
+        }
 
         public Test(IMethodCaller caller)
         {
