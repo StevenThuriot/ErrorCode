@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Horizon;
-using System.Text.RegularExpressions;
 using ErrorCode.Base;
+using System.Text;
 
 namespace ErrorCode.Domain
 {
     class Test : Notifyable
     {
-        private readonly Attribute _expException;
-        private IMethodCaller _caller;
+        readonly Attribute _expException;
+        readonly IMethodCaller _caller;
 
         TestResult _testResult;
         public TestResult TestResult
@@ -39,12 +39,47 @@ namespace ErrorCode.Domain
         public bool IsTestable { get; }
         public string Name => _caller.Name;
         
-        static readonly Regex readableNameRegex = new Regex(@"(?<!^)([A-Z])|(_)", RegexOptions.Compiled);        
-        public string ReadableName => readableNameRegex.Replace(Name, @" $1");
+        public string ReadableName => AsReadable(Name);
+
+        static string AsReadable(string text)
+        {
+            var builder = new StringBuilder();
+
+            var typeName = text;
+            int index = -1;
+
+            while (++index < typeName.Length)
+            {
+                char nextChar = typeName[index];
+
+                if (char.IsUpper(nextChar) && index != 0)
+                {
+                    if (char.IsLower(typeName[index - 1]))
+                    {
+                        if (typeName.Length > index + 1 &&
+                            char.IsLower(typeName[index + 1]))
+                        {
+                            nextChar = char.ToLower(nextChar);
+                        }
+                        builder.Append(' ');
+                    }
+                    else if (typeName.Length > index + 1 && char.IsLower(typeName[index + 1]))
+                    {
+                        builder.Append(' ');
+                        nextChar = char.ToLower(nextChar);
+                    }
+                }
+
+                builder.Append(nextChar);
+            }
+
+            return builder.ToString();
+        }
+
 
         public TestResult Run(dynamic testClass, double interval = Constants.DefaultInterval) => TestResult = RunInternal(testClass, interval);
 
-        private TestResult RunInternal(dynamic testClass, double interval)
+        TestResult RunInternal(dynamic testClass, double interval)
         {
             if (!IsTestable)
                 return TestResult.Fault("Untestable.");
@@ -56,10 +91,13 @@ namespace ErrorCode.Domain
                     bool success = RunTestWithExpectedException(testClass, _expException);
                     return new TestResult(success);
                 }
-                double totalMilliseconds = RunTest(testClass, interval);
-                var average = totalMilliseconds / interval;
+                else
+                {
+                    double totalMilliseconds = RunTest(testClass, interval);
+                    var average = totalMilliseconds / interval;
 
-                return TestResult.Success(average);
+                    return TestResult.Success(average);
+                }
             }
             catch (Exception ex)
             {
@@ -68,7 +106,7 @@ namespace ErrorCode.Domain
             }
         }
 
-        private double RunTest(dynamic test, double interval)
+        double RunTest(dynamic test, double interval)
         {
             //Warmup
             _caller.Call(test);
@@ -89,7 +127,7 @@ namespace ErrorCode.Domain
             return watch.Elapsed.TotalMilliseconds;
         }
 
-        private TestResult RunTestWithExpectedException(dynamic test, Attribute expException)
+        TestResult RunTestWithExpectedException(dynamic test, Attribute expException)
         {
             try
             {
