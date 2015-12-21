@@ -69,6 +69,8 @@
     <Compile Include="BindableSelectedItemBehavior.cs" />
     <Compile Include="Discover.cs" />
     <Compile Include="Domain\Constants.cs" />
+    <Compile Include="Domain\FaultyTestRestult.cs" />
+    <Compile Include="Domain\SuccessfulTestRestult.cs" />
     <Compile Include="Domain\Test.cs" />
     <Compile Include="Domain\TestAssembly.cs" />
     <Compile Include="Domain\TestClass.cs" />

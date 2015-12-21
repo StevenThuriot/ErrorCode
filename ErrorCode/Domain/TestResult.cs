@@ -1,28 +1,24 @@
-﻿namespace ErrorCode.Domain
+﻿using System;
+
+namespace ErrorCode.Domain
 {
-    public class TestResult
+    public abstract class TestResult
     {
-        public static readonly TestResult Successful = new TestResult(true);
-        public static readonly TestResult Faulty = new TestResult(false);
-
-        public TestResult(bool succeeded)
-        {
-            Succeeded = succeeded;
-        }
-
-        public TestResult(bool succeeded, double average)
-            : this(succeeded)
+        public TestResult(double average, string message)
         {
             Average = average;
+            Message = message;
         }
 
+        public abstract bool Succeeded { get; }
+
         public double Average { get; }
-        public bool Succeeded { get; }
+        public string Message { get; }
 
-        public string Message { get; private set; }
+        public static TestResult Success(double average = 0D, string message = null) => new SuccessfulTestRestult(average, message);
 
-        public static TestResult Success(double average, string message = null) => new TestResult(true, average) { Message = message };
+        public static TestResult Fault(string message = null) => new FaultyTestRestult(message);
 
-        public static TestResult Fault(string message = null) => new TestResult(false) { Message = message };
+        public override string ToString() => $"Test run successful: {Succeeded}{Environment.NewLine}• Message: {Message}";
     }
 }

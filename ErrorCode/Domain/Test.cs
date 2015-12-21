@@ -88,8 +88,7 @@ namespace ErrorCode.Domain
             {
                 if (_expException != null)
                 {
-                    bool success = RunTestWithExpectedException(testClass, _expException);
-                    return new TestResult(success);
+                    return RunTestWithExpectedException(testClass, _expException);
                 }
                 else
                 {
@@ -108,8 +107,9 @@ namespace ErrorCode.Domain
 
         double RunTest(dynamic test, double interval)
         {
+            var parameters = new dynamic[] { test };
             //Warmup
-            _caller.Call(test);
+            _caller.Call(parameters);
 
             // Clean up
             GC.Collect();
@@ -120,7 +120,7 @@ namespace ErrorCode.Domain
             var watch = Stopwatch.StartNew();
 
             for (var i = 0; i < interval; i++)
-                _caller.Call(test);
+                _caller.Call(parameters);
 
             watch.Stop();
 
@@ -131,7 +131,7 @@ namespace ErrorCode.Domain
         {
             try
             {
-                _caller.Call(test);
+                _caller.Call(new dynamic[] { test });
                 return TestResult.Fault("Test did not throw expected Type.");
             }
             catch (Exception ex)
@@ -152,7 +152,7 @@ namespace ErrorCode.Domain
                 }
             }
 
-            return TestResult.Successful;
+            return TestResult.Success();
         }
     }
 }
