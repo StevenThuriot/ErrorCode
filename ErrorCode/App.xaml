@@ -7,6 +7,9 @@
 		<ResourceDictionary>
 
 			<ResourceDictionary.MergedDictionaries>
+                
+                
+
 				<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
 				<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
 				<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
@@ -20,7 +23,26 @@
                 
 			</ResourceDictionary.MergedDictionaries>
 
-			<Style TargetType="{x:Type TextBlock}">
+            <Style x:Key="FadeOutButton" TargetType="{x:Type Button}">
+                <Style.Triggers>
+                    <EventTrigger RoutedEvent="Control.MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard >
+                                <DoubleAnimation Duration="0:0:.5" To="1" Storyboard.TargetProperty="Opacity"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="Control.MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard >
+                                <DoubleAnimation Duration="0:0:.5" To="0" Storyboard.TargetProperty="Opacity"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style TargetType="{x:Type TextBlock}">
 				<Setter Property="Margin" Value="2" />
 			</Style>
 

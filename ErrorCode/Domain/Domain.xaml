@@ -16,6 +16,19 @@
                 <Run Text="{Binding Count, Mode=OneWay}" FontSize="9" />
                 <Run Text="]" FontSize="9" />
             </TextBlock>
+
+            <!--<Button Grid.Column="0"
+                    Width="16" Height="16"
+                    ToolTip="Run Assembly Tests" 
+                    Command="{Binding Path=DataContext.Commands.RunAllAssemblyTests, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
+                    CommandParameter="{Binding}"
+                    HorizontalAlignment="Right"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    Opacity="0"
+                    Style="{DynamicResource FadeOutButton}">
+                <Path Data="M 6 0 L 6 12 L 12 6 Z" Fill="Black" Margin="-1 2 2 2" />
+            </Button>-->
         </Grid>
     </HierarchicalDataTemplate>
 
