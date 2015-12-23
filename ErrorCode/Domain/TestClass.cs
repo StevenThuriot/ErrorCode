@@ -9,8 +9,8 @@ namespace ErrorCode.Domain
 {
     class TestClass : IReadOnlyList<Test>
     {
-        private readonly IReadOnlyList<Test> _tests;
-        private readonly Type _type;
+        readonly IReadOnlyList<Test> _tests;
+        readonly Type _type;
 
         public string Name { get; }
 
@@ -22,20 +22,22 @@ namespace ErrorCode.Domain
 
 
             _tests = Info.Extended.Methods(type)
-                         .Select(x => new Test(x))
+                         .Select(x => new Test(this, x))
                          .Where(x => x.IsTestable)
                          .ToArray();
         }
 
         public IReadOnlyList<TestResult> Run(double interval = Constants.DefaultInterval)
         {
-            var instance = (object) Info.Create(_type);
+            object instance = CreateTestInstance();
 
             var result = _tests.Select(x => x.Run(instance, interval))
                                .ToArray();
 
             return result;
         }
+
+        public object CreateTestInstance() => (object)Info.Create(_type);
 
         public IEnumerator<Test> GetEnumerator() => _tests.GetEnumerator();
 

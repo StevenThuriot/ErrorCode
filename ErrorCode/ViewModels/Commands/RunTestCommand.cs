@@ -4,15 +4,18 @@ using System.Threading.Tasks;
 
 namespace ErrorCode.ViewModels.Commands
 {
-    class RunAllAssemblyTestsCommand : AsyncCommand<Overview>
+    class RunTestCommand : AsyncCommand<Overview>
     {
-        public override bool CanExecute(object parameter) => parameter is TestAssembly;
+        public override bool CanExecute(object parameter) => parameter is Test;
 
         protected override Task<bool> OnExecute(object parameter) =>
             Task.Run(() =>
             {
-                foreach (var testClass in (TestAssembly)parameter)
-                    testClass.Run();
+                var test = ((Test)parameter);
+
+                var instance = test.Parent.CreateTestInstance();
+
+                test.Run(instance);
 
                 return true;
             });

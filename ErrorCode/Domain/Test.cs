@@ -20,10 +20,19 @@ namespace ErrorCode.Domain
             set { ChangeProperty(ref _testResult, value); }
         }
 
-        public Test(IMethodCaller caller)
+        public TestClass Parent { get; }
+
+        public Test(TestClass parent, IMethodCaller caller)
         {
-            _caller = caller;
+            if (parent == null)
+                throw new ArgumentNullException(nameof(parent));
+
+            if (caller == null)
+                throw new ArgumentNullException(nameof(caller));
             
+            _caller = caller;
+            Parent = parent;
+
             var comparer = StringComparer.OrdinalIgnoreCase;
 
             CustomAttributes = Attribute.GetCustomAttributes(_caller.MethodInfo);
@@ -75,7 +84,6 @@ namespace ErrorCode.Domain
 
             return builder.ToString();
         }
-
 
         public TestResult Run(dynamic testClass, double interval = Constants.DefaultInterval) => TestResult = RunInternal(testClass, interval);
 

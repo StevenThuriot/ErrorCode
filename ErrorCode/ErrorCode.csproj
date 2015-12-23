@@ -77,7 +77,10 @@
     <Compile Include="Domain\TestResult.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="ViewModels\Commands\RunAllAssemblyTestsCommand.cs" />
+    <Compile Include="ViewModels\Commands\RunAllClassTestsCommand.cs" />
     <Compile Include="ViewModels\Commands\RunAllTestsCommand.cs" />
+    <Compile Include="ViewModels\Commands\RunTestCommand.cs" />
+    <Compile Include="ViewModels\Commands\TestCommand.cs" />
     <Compile Include="ViewModels\Overview.cs" />
     <Page Include="Domain\Domain.xaml">
       <SubType>Designer</SubType>
