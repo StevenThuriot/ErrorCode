@@ -1,6 +1,6 @@
 ﻿namespace ErrorCode.Base
 {
-    public class ViewModel<T> : Notifyable
+    public class ViewModel<T> : Notifyable, IViewModel
         where T : ViewModel<T>
     {
         public ViewModel()

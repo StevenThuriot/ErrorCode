@@ -7,7 +7,7 @@
 
 
 	<DataTemplate DataType="{x:Type local:Overview}">
-		<Grid>
+		<Grid err:Context.ViewModel="{Binding}">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="*" MinWidth="200" />
 				<ColumnDefinition Width="Auto" />

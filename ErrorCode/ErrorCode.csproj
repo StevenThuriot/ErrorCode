@@ -64,9 +64,11 @@
     <Compile Include="Base\AsyncCommand.cs" />
     <Compile Include="Base\Command.cs" />
     <Compile Include="Base\CommandsManager.cs" />
+    <Compile Include="Base\IViewModel.cs" />
     <Compile Include="Base\Notifyable.cs" />
     <Compile Include="Base\ViewModel.cs" />
     <Compile Include="BindableSelectedItemBehavior.cs" />
+    <Compile Include="Context.cs" />
     <Compile Include="Discover.cs" />
     <Compile Include="Domain\Constants.cs" />
     <Compile Include="Domain\FaultyTestRestult.cs" />
