@@ -72,5 +72,29 @@
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>
+
+    <DataTemplate DataType="{x:Type domain:FaultyTestRestult}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Row="0" Grid.Column="0" Background="#FFBABA" BorderBrush="#D8000C" BorderThickness="1">
+                <TextBlock Foreground="#D8000C" 
+                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                           FontWeight="Bold"
+                           >
+                    Test Failed
+                </TextBlock>
+            </Border>
+
+            <TextBlock TextWrapping="Wrap" Grid.Row="2" Grid.Column="0" Text="{Binding Message, Mode=OneWay}" />
+        </Grid>
+    </DataTemplate>
     
 </ResourceDictionary>
