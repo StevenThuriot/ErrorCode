@@ -27,7 +27,7 @@ namespace ErrorCode.Domain
                          .ToArray();
         }
 
-        public IReadOnlyList<TestResult> Run(double interval = Constants.DefaultInterval)
+        public IReadOnlyList<TestState> Run(double interval = Constants.DefaultInterval)
         {
             object instance = CreateTestInstance();
 

@@ -71,12 +71,12 @@
     <Compile Include="Context.cs" />
     <Compile Include="Discover.cs" />
     <Compile Include="Domain\Constants.cs" />
-    <Compile Include="Domain\FaultyTestRestult.cs" />
-    <Compile Include="Domain\SuccessfulTestRestult.cs" />
+    <Compile Include="Domain\FaultyTestState.cs" />
+    <Compile Include="Domain\SuccessfulTestState.cs" />
     <Compile Include="Domain\Test.cs" />
     <Compile Include="Domain\TestAssembly.cs" />
     <Compile Include="Domain\TestClass.cs" />
-    <Compile Include="Domain\TestResult.cs" />
+    <Compile Include="Domain\TestState.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="ViewModels\Commands\RunAllAssemblyTestsCommand.cs" />
     <Compile Include="ViewModels\Commands\RunAllClassTestsCommand.cs" />

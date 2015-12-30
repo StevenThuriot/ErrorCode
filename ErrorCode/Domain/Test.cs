@@ -13,11 +13,11 @@ namespace ErrorCode.Domain
         readonly Attribute _expException;
         readonly IMethodCaller _caller;
 
-        TestResult _testResult;
-        public TestResult TestResult
+        TestState _testState;
+        public TestState TestState
         {
-            get { return _testResult; }
-            set { ChangeProperty(ref _testResult, value); }
+            get { return _testState; }
+            set { ChangeProperty(ref _testState, value); }
         }
 
         public TestClass Parent { get; }
@@ -85,12 +85,12 @@ namespace ErrorCode.Domain
             return builder.ToString();
         }
 
-        public TestResult Run(dynamic testClass, double interval = Constants.DefaultInterval) => TestResult = RunInternal(testClass, interval);
+        public TestState Run(dynamic testClass, double interval = Constants.DefaultInterval) => TestState = RunInternal(testClass, interval);
 
-        TestResult RunInternal(dynamic testClass, double interval)
+        TestState RunInternal(dynamic testClass, double interval)
         {
             if (!IsTestable)
-                return TestResult.Fault("Untestable.");
+                return TestState.Fault("Untestable.");
 
             try
             {
@@ -103,13 +103,13 @@ namespace ErrorCode.Domain
                     double totalMilliseconds = RunTest(testClass, interval);
                     var average = totalMilliseconds / interval;
 
-                    return TestResult.Success(average);
+                    return TestState.Success(average);
                 }
             }
             catch (Exception ex)
             {
                 //Fail 
-                return TestResult.Fault("Unexpected error: " + ex.Message);
+                return TestState.Fault("Unexpected error: " + ex.Message);
             }
         }
 
@@ -135,12 +135,12 @@ namespace ErrorCode.Domain
             return watch.Elapsed.TotalMilliseconds;
         }
 
-        TestResult RunTestWithExpectedException(dynamic test, Attribute expException)
+        TestState RunTestWithExpectedException(dynamic test, Attribute expException)
         {
             try
             {
                 _caller.Call(new dynamic[] { test });
-                return TestResult.Fault("Test did not throw expected Type.");
+                return TestState.Fault("Test did not throw expected Type.");
             }
             catch (Exception ex)
             {
@@ -149,18 +149,18 @@ namespace ErrorCode.Domain
 
                 if (ex.GetType() != exceptionType)
                 {
-                    return TestResult.Fault("Test did not throw expected Type.");
+                    return TestState.Fault("Test did not throw expected Type.");
                 }
 
                 string message = expectedException.ExpectedMessage;
 
                 if (!string.IsNullOrEmpty(message) && ex.Message != message)
                 {
-                    return TestResult.Fault("Test threw expected Type, but with an unexpected message.");
+                    return TestState.Fault("Test threw expected Type, but with an unexpected message.");
                 }
             }
 
-            return TestResult.Success();
+            return TestState.Success();
         }
     }
 }
