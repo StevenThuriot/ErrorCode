@@ -31,8 +31,15 @@ namespace ErrorCode.Domain
         {
             object instance = CreateTestInstance();
 
-            var result = _tests.Select(x => x.Run(instance, interval))
-                               .ToArray();
+            var result = new TestState[_tests.Count];
+
+            for (int i = 0; i < _tests.Count; i++)
+            {
+                var test = _tests[i];
+                test.Run(instance, interval);
+
+                result[i] = test.TestState;
+            }
 
             return result;
         }

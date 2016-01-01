@@ -85,31 +85,34 @@ namespace ErrorCode.Domain
             return builder.ToString();
         }
 
-        public TestState Run(dynamic testClass, double interval = Constants.DefaultInterval) => TestState = RunInternal(testClass, interval);
-
-        TestState RunInternal(dynamic testClass, double interval)
+        public void Run(dynamic testClass, double interval = Constants.DefaultInterval)
         {
             if (!IsTestable)
-                return TestState.Fault("Untestable.");
+            {
+                TestState = TestState.Fault("Untestable.");
+                return;
+            }
+
+            //TestState = new RunningTestState();
 
             try
             {
                 if (_expException != null)
                 {
-                    return RunTestWithExpectedException(testClass, _expException);
+                    TestState = RunTestWithExpectedException(testClass, _expException);
                 }
                 else
                 {
                     double totalMilliseconds = RunTest(testClass, interval);
                     var average = totalMilliseconds / interval;
 
-                    return TestState.Success(average);
+                    TestState = TestState.Success(average);
                 }
             }
             catch (Exception ex)
             {
                 //Fail 
-                return TestState.Fault("Unexpected error: " + ex.Message);
+                TestState = TestState.Fault("Unexpected error: " + ex.Message);
             }
         }
 
