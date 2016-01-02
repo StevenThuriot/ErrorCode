@@ -15,6 +15,8 @@
         }
 
         public override bool Succeeded => true;
+        public override bool Running => false;
+
         public double Average { get; }
     }
 }

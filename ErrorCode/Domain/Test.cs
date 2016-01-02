@@ -93,10 +93,14 @@ namespace ErrorCode.Domain
                 return;
             }
 
-            //TestState = new RunningTestState();
-
             try
             {
+                TestState = new RunningTestState();
+
+#if DEBUG
+                System.Threading.Thread.Sleep(2500);
+#endif
+
                 if (_expException != null)
                 {
                     TestState = RunTestWithExpectedException(testClass, _expException);
@@ -113,6 +117,13 @@ namespace ErrorCode.Domain
             {
                 //Fail 
                 TestState = TestState.Fault("Unexpected error: " + ex.Message);
+            }
+            finally 
+            {
+                if (TestState is RunningTestState)
+                {
+                    TestState = null;
+                }
             }
         }
 

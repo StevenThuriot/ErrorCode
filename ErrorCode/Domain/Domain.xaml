@@ -93,6 +93,9 @@
             <DataTrigger Binding="{Binding TestState.Succeeded}" Value="False">
                 <Setter TargetName="_icon" Property="Source" Value="/Resources/test_16_red.png" />
             </DataTrigger>
+            <DataTrigger Binding="{Binding TestState.Running}" Value="True">
+                <Setter TargetName="_icon" Property="Source" Value="/Resources/test_16_running.png" />
+            </DataTrigger>
             <DataTrigger Binding="{Binding TestState}" Value="{x:Null}">
                 <Setter TargetName="_icon" Property="Source" Value="/Resources/test_16.png" />
             </DataTrigger>

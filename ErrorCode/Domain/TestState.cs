@@ -10,6 +10,7 @@ namespace ErrorCode.Domain
         }
 
         public abstract bool Succeeded { get; }
+        public abstract bool Running { get; }
         public string Message { get; }
 
         public static TestState Success(double average = 0D, string message = null) => new SuccessfulTestState(average, message);

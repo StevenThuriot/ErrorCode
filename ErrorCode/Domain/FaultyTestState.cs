@@ -13,5 +13,6 @@
         }
 
         public override bool Succeeded => false;
+        public override bool Running => false;
     }
 }
