@@ -42,7 +42,7 @@ namespace ErrorCode
                     priority = DispatcherPriority.Loaded;
                 }
                 
-                dispatcher.BeginInvoke(priority, new Action<MainWindow, bool>((w, b) => w.IsLoading = b), Window, value);
+                dispatcher.BeginInvoke(priority, new Action(() => Window.IsLoading = value));
             }
         }
 

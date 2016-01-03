@@ -6,20 +6,23 @@ namespace ErrorCode.ViewModels.Commands
 {
     class TestCommand : Command<Overview>
     {
-        public override bool CanExecute(object parameter) => parameter is TestAssembly || parameter is TestClass || parameter is Test;
+        public override bool CanExecute(object parameter) => !App.IsLoading && (parameter is TestAssembly || parameter is TestClass || parameter is Test);
 
 
         public override void Execute(object parameter)
         {
-            var commands = ViewModel.Commands;
-                        
-            if (TryRun(commands.RunAllAssemblyTests, parameter))
-                return;
+            using (App.Load)
+            {
+                var commands = ViewModel.Commands;
 
-            if (TryRun(commands.RunAllClassTests, parameter))
-                return;
-            
-            TryRun(commands.RunTest, parameter);
+                if (TryRun(commands.RunAllAssemblyTests, parameter))
+                    return;
+
+                if (TryRun(commands.RunAllClassTests, parameter))
+                    return;
+
+                TryRun(commands.RunTest, parameter);
+            }
         }
 
         bool TryRun(ICommand command, object parameter)
