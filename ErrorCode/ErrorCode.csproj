@@ -65,6 +65,8 @@
     <Compile Include="Base\Command.cs" />
     <Compile Include="Base\CommandsManager.cs" />
     <Compile Include="Base\IViewModel.cs" />
+    <Compile Include="Base\LoadingAsyncCommand.cs" />
+    <Compile Include="Base\LoadingCommand.cs" />
     <Compile Include="Base\Notifyable.cs" />
     <Compile Include="Base\ViewModel.cs" />
     <Compile Include="BindableSelectedItemBehavior.cs" />

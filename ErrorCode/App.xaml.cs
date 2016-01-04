@@ -13,8 +13,7 @@ namespace ErrorCode
         public static IDisposable Load => new LoadingHelper();
         public static Dispatcher CurrentDispatcher => Current?.Dispatcher;
         public static MainWindow Window => (MainWindow)Current?.MainWindow;
-
-
+        
         public static bool IsLoading
         {
             get { return Window?.IsLoading ?? false; }
@@ -66,7 +65,7 @@ namespace ErrorCode
         }
 
 
-        public static ObservableCollection<UIElement> LeftWindowControls => (Window.LeftWindowCommands.ItemsSource) as ObservableCollection<UIElement>;
-        public static ObservableCollection<UIElement> RightWindowControls => (Window.RightWindowCommands.ItemsSource) as ObservableCollection<UIElement>;
+        public static ObservableCollection<UIElement> LeftWindowControls => (ObservableCollection<UIElement>)(Window.LeftWindowCommands.ItemsSource);
+        public static ObservableCollection<UIElement> RightWindowControls => (ObservableCollection<UIElement>)(Window.RightWindowCommands.ItemsSource);
     }
 }

@@ -4,25 +4,22 @@ using System.Windows.Input;
 
 namespace ErrorCode.ViewModels.Commands
 {
-    class TestCommand : Command<Overview>
+    class TestCommand : LoadingCommand<Overview>
     {
         public override bool CanExecute(object parameter) => !App.IsLoading && (parameter is TestAssembly || parameter is TestClass || parameter is Test);
 
 
-        public override void Execute(object parameter)
+        protected override void ExecuteWhileLoading(object parameter)
         {
-            using (App.Load)
-            {
-                var commands = ViewModel.Commands;
+            var commands = ViewModel.Commands;
 
-                if (TryRun(commands.RunAllAssemblyTests, parameter))
-                    return;
+            if (TryRun(commands.RunAllAssemblyTests, parameter))
+                return;
 
-                if (TryRun(commands.RunAllClassTests, parameter))
-                    return;
+            if (TryRun(commands.RunAllClassTests, parameter))
+                return;
 
-                TryRun(commands.RunTest, parameter);
-            }
+            TryRun(commands.RunTest, parameter);
         }
 
         bool TryRun(ICommand command, object parameter)
