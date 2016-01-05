@@ -15,18 +15,18 @@
 	
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
-    <ContentPresenter Grid.Row="1" Content="{Binding CurrentViewModel, Mode=OneWay}" Margin="2" />
+    <ContentPresenter Content="{Binding CurrentViewModel, Mode=OneWay}" Margin="2" />
         
-          <Grid Grid.Row="1" Margin="0" Visibility="{Binding IsLoadingVisibility, Mode=OneWay}" 
+          <Grid Margin="0" Visibility="{Binding IsLoadingVisibility, Mode=OneWay}" 
               Background="#B4B4B6" 
               Opacity="0.5"
               />
 
-        <ProgressBar Grid.Row="0" Visibility="{Binding IsLoadingVisibility, Mode=OneWay}"  
-                     IsIndeterminate="{Binding IsLoading, Mode=OneWay}" BorderThickness="0" />
+        <ProgressBar Visibility="{Binding IsLoadingVisibility, Mode=OneWay}"  
+                     IsIndeterminate="{Binding IsLoading, Mode=OneWay}" BorderThickness="0"
+                     VerticalAlignment="Top" />
     </Grid>
 </controls:MetroWindow>
