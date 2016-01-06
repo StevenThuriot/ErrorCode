@@ -81,6 +81,7 @@
     <Compile Include="Domain\TestClass.cs" />
     <Compile Include="Domain\TestState.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="PaddingConverter.cs" />
     <Compile Include="ViewModels\Commands\RunAllAssemblyTestsCommand.cs" />
     <Compile Include="ViewModels\Commands\RunAllClassTestsCommand.cs" />
     <Compile Include="ViewModels\Commands\RunAllTestsCommand.cs" />
