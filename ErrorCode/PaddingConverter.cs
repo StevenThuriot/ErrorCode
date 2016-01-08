@@ -9,14 +9,21 @@ namespace ErrorCode
     class PaddingConverter : MarkupExtension, IValueConverter
     {
         public override object ProvideValue(IServiceProvider serviceProvider) => this;
-        
-
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            int padding = parameter == null || parameter == DependencyProperty.UnsetValue
-                ? -25 
-                : int.Parse((string)parameter);
+            int padding;
+            if (parameter is int)
+            {
+                padding = (int)parameter;
+            }
+            else if (parameter == null || parameter == DependencyProperty.UnsetValue) {
+                padding = -25;
+            }
+            else
+            {
+                padding = int.Parse((string)parameter);
+            }
 
             var actual = (double)value;
 

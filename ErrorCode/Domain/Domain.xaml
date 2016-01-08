@@ -103,7 +103,7 @@
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type domain:FaultyTestState}">
-        <Grid Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContentPresenter}, AncestorLevel=2}, Path=ActualWidth, Mode=OneWay, Converter={err:PaddingConverter}, ConverterParameter=-25}">
+        <Grid Width="{err:PaddingBinding}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" />
                 <RowDefinition Height="10" />
@@ -127,7 +127,7 @@
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type domain:SuccessfulTestState}">
-        <Grid Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContentPresenter}, AncestorLevel=2}, Path=ActualWidth, Mode=OneWay, Converter={err:PaddingConverter}, ConverterParameter=-25}">
+        <Grid Width="{err:PaddingBinding}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" />
                 <RowDefinition Height="10" />
