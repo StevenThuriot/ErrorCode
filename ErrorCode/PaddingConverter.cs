@@ -13,11 +13,12 @@ namespace ErrorCode
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             int padding;
-            if (parameter is int)
+            if (parameter == null || parameter == DependencyProperty.UnsetValue) 
             {
                 padding = (int)parameter;
             }
-            else if (parameter == null || parameter == DependencyProperty.UnsetValue) {
+            else if (parameter is int)
+            {
                 padding = -25;
             }
             else
@@ -33,7 +34,24 @@ namespace ErrorCode
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            int padding;
+            if (parameter == null || parameter == DependencyProperty.UnsetValue)
+            {
+                padding = (int)parameter;
+            }
+            else if (parameter is int)
+            {
+                padding = -25;
+            }
+            else
+            {
+                padding = int.Parse((string)parameter);
+            }
+
+            var actual = (double)value;
+
+
+            return actual - padding;
         }
     }
 }
