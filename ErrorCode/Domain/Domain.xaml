@@ -102,6 +102,30 @@
         </DataTemplate.Triggers>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type domain:RunningTestState}">
+        <Grid Width="{err:PaddingBinding}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Row="0" Grid.Column="0" Background="#BAD4FF" BorderBrush="#005ED8" BorderThickness="1">
+                <TextBlock Foreground="#005ED8" 
+                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                           FontWeight="Bold"
+                           >
+                    Test Currently Runnign
+                </TextBlock>
+            </Border>
+
+            <TextBlock TextWrapping="Wrap" Grid.Row="2" Grid.Column="0" Text="{Binding Message, Mode=OneWay}" />
+        </Grid>
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type domain:FaultyTestState}">
         <Grid Width="{err:PaddingBinding}">
             <Grid.RowDefinitions>
