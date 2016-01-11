@@ -118,11 +118,14 @@
                            HorizontalAlignment="Center" VerticalAlignment="Center"
                            FontWeight="Bold"
                            >
-                    Test Currently Runnign
+                    Test Currently Running
                 </TextBlock>
             </Border>
 
-            <TextBlock TextWrapping="Wrap" Grid.Row="2" Grid.Column="0" Text="{Binding Message, Mode=OneWay}" />
+            <TextBlock TextWrapping="Wrap" Grid.Row="2" Grid.Column="0" >
+                <Run Text="Running since:" />
+                <Run Text="{Binding StartTime, Mode=OneWay}" FontWeight="Bold" />
+            </TextBlock>
         </Grid>
     </DataTemplate>
 

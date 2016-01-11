@@ -1,4 +1,6 @@
-﻿namespace ErrorCode.Domain
+﻿using System;
+
+namespace ErrorCode.Domain
 {
     class RunningTestState : TestState
     {
@@ -14,5 +16,6 @@
 
         public override bool Succeeded => false;
         public override bool Running => true;
+        public DateTime StartTime { get; } = DateTime.Now;
     }
 }
