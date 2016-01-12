@@ -89,6 +89,10 @@
     <Compile Include="ViewModels\Commands\RunTestCommand.cs" />
     <Compile Include="ViewModels\Commands\TestCommand.cs" />
     <Compile Include="ViewModels\Overview.cs" />
+    <Page Include="Domain\Domain.Tree.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Domain\Domain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

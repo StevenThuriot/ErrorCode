@@ -3,104 +3,93 @@
                     xmlns:err="clr-namespace:ErrorCode"
                     xmlns:domain="clr-namespace:ErrorCode.Domain">
 
-    <HierarchicalDataTemplate DataType="{x:Type domain:TestAssembly}" ItemsSource="{Binding Mode=OneWay}">
-        <Grid ToolTip="{Binding Name, Mode=OneWay}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />    
-                <ColumnDefinition Width="*" />    
-            </Grid.ColumnDefinitions>
-            
-            <Image Grid.Column="0" Source="/Resources/library_16.png" />
-            <TextBlock Grid.Column="1">
-                <Run Text="{Binding Name, Mode=OneWay}" />
-                <Run Text="[" FontSize="9" />
-                <Run Text="{Binding Count, Mode=OneWay}" FontSize="9" />
-                <Run Text="]" FontSize="9" />
-            </TextBlock>
 
-            <Button Grid.Column="0"
-                    Width="16" Height="16"
-                    ToolTip="Run Assembly Tests" 
-                    Command="{Binding Path=(err:Context.ViewModel).Commands.RunAllAssemblyTests, RelativeSource={RelativeSource Self}}"
-                    CommandParameter="{Binding}"
-                    HorizontalAlignment="Right"
-                    BorderBrush="Transparent"
-                    BorderThickness="0"
-                    Opacity="0"
-                    Style="{DynamicResource FadeOutButton}">
-                <Path Data="M 6 0 L 6 12 L 12 6 Z" Fill="Black" Margin="-4 0 0 0" />
-            </Button>
-        </Grid>
-    </HierarchicalDataTemplate>
-
-    <HierarchicalDataTemplate DataType="{x:Type domain:TestClass}" ItemsSource="{Binding Mode=OneWay}">
-        <Grid ToolTip="{Binding Name, Mode=OneWay}">
+    <DataTemplate DataType="{x:Type domain:TestAssembly}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <Image Grid.Column="0" Source="/Resources/class_16.png" />
-            <TextBlock Grid.Column="1">
-                <Run Text="{Binding Name, Mode=OneWay}" />
-                <Run Text="[" FontSize="9" />
-                <Run Text="{Binding Count, Mode=OneWay}" FontSize="9" />
-                <Run Text="]" FontSize="9" />
-            </TextBlock>
-
-            <Button Grid.Column="0"
-                    Width="16" Height="16"
-                    ToolTip="Run Assembly Tests" 
-                    Command="{Binding Path=(err:Context.ViewModel).Commands.RunAllClassTests, RelativeSource={RelativeSource Self}}"
-                    CommandParameter="{Binding}"
-                    HorizontalAlignment="Right"
-                    BorderBrush="Transparent"
-                    BorderThickness="0"
-                    Opacity="0"
-                    Style="{DynamicResource FadeOutButton}">
-                <Path Data="M 6 0 L 6 12 L 12 6 Z" Fill="Black" Margin="-4 0 0 0" />
-            </Button>
-        </Grid>
-    </HierarchicalDataTemplate>
-
-    <DataTemplate DataType="{x:Type domain:Test}">
-        <Grid ToolTip="{Binding Name, Mode=OneWay}">
-            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" MinWidth="150" />
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Image x:Name="_icon" Grid.Column="0" Source="/Resources/test_16.png" />
-            <TextBlock Grid.Column="1" Text="{Binding Name, Mode=OneWay}" />
+            <Image Grid.Row="0" Grid.Column="0" Source="/Resources/library_16.png" Height="16" Width="16" />
+            <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Name, Mode=OneWay}" FontSize="21" TextDecorations="Underline" />
 
-            <Button Grid.Column="0"
-                    Width="16" Height="16"
-                    ToolTip="Run Assembly Tests" 
-                    Command="{Binding Path=(err:Context.ViewModel).Commands.RunTest, RelativeSource={RelativeSource Self}}"
-                    CommandParameter="{Binding}"
-                    HorizontalAlignment="Right"
-                    BorderBrush="Transparent"
-                    BorderThickness="0"
-                    Opacity="0"
-                    Style="{DynamicResource FadeOutButton}">
-                <Path Data="M 6 0 L 6 12 L 12 6 Z" Fill="Black" Margin="-4 0 0 0" />
-            </Button>
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="Number of test classes:" />
+            <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Count, Mode=OneWay}" HorizontalAlignment="Right" />
+
+            <TextBlock Grid.Row="3" Grid.Column="1" Text="Number of tests:" />
+            <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding TestCount, Mode=OneWay}" HorizontalAlignment="Right" />
+
+            <!--<TextBlock Grid.Row="4" Grid.Column="1" Text="Of which succeeded:" />
+                            <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding SucceededTestCount, Mode=OneWay}" HorizontalAlignment="Right" Foreground="Green" />
+                            
+                            <TextBlock Grid.Row="5" Grid.Column="1" Text="Of which failed:" />
+                            <TextBlock Grid.Row="5" Grid.Column="2" Text="{Binding FailedTestCount, Mode=OneWay}" HorizontalAlignment="Right" Foreground="Red" />-->
+
         </Grid>
-        <DataTemplate.Triggers>
-            <DataTrigger Binding="{Binding TestState.Succeeded}" Value="True">
-                <Setter TargetName="_icon" Property="Source" Value="/Resources/test_16_green.png" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TestState.Succeeded}" Value="False">
-                <Setter TargetName="_icon" Property="Source" Value="/Resources/test_16_red.png" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TestState.Running}" Value="True">
-                <Setter TargetName="_icon" Property="Source" Value="/Resources/test_16_running.png" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TestState}" Value="{x:Null}">
-                <Setter TargetName="_icon" Property="Source" Value="/Resources/test_16.png" />
-            </DataTrigger>
-        </DataTemplate.Triggers>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type domain:TestClass}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" MinWidth="150" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Image Grid.Row="0" Grid.Column="0" Source="/Resources/class_16.png" Height="16" Width="16" />
+            <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Name, Mode=OneWay}" FontSize="21" TextDecorations="Underline" />
+
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="Number of tests:" />
+            <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Count, Mode=OneWay}" HorizontalAlignment="Right" />
+
+            <!--<TextBlock Grid.Row="3" Grid.Column="1" Text="Of which succeeded:" />
+                            <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding SucceededTestCount, Mode=OneWay}" HorizontalAlignment="Right" Foreground="Green" />
+                            
+                            <TextBlock Grid.Row="3" Grid.Column="1" Text="Of which failed:" />
+                            <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding FailedTestCount, Mode=OneWay}" HorizontalAlignment="Right" Foreground="Red" />-->
+
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type domain:Test}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" MinWidth="150" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Image Grid.Row="0" Grid.Column="0" Source="/Resources/test_16.png" Height="16" Width="16" />
+            <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding ReadableName, Mode=OneWay}" FontSize="21" TextDecorations="Underline" />
+
+            <ContentPresenter Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Content="{Binding TestState, Mode=OneWay}" />
+        </Grid>
+    </DataTemplate>
+
+
+
 
     <DataTemplate DataType="{x:Type domain:RunningTestState}">
         <Grid Width="{err:PaddingBinding}">
@@ -183,5 +172,4 @@
             <TextBlock TextWrapping="Wrap" Grid.Row="3" Grid.Column="1" Text="{Binding Average, Mode=OneWay}" />
         </Grid>
     </DataTemplate>
-    
 </ResourceDictionary>

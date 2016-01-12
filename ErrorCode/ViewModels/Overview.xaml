@@ -21,98 +21,20 @@
                 <!--<e:Interaction.Behaviors>
                     <err:BindableSelectedItemBehavior SelectedItem="{Binding SelectedItem, Mode=TwoWay}" />
                 </e:Interaction.Behaviors>-->
+                <TreeView.Resources>
+                    <ResourceDictionary>
+                        <ResourceDictionary.MergedDictionaries>
+                            <ResourceDictionary Source="/Domain/Domain.Tree.xaml"/>
+                        </ResourceDictionary.MergedDictionaries>
+                    </ResourceDictionary>
+                </TreeView.Resources>
             </TreeView>
 
 			<GridSplitter Grid.Column="1" Width="3" ResizeBehavior="PreviousAndNext" ResizeDirection="Columns" />
 
-            <ContentPresenter Grid.Column="2" Content="{Binding ElementName=Tree, Path=SelectedItem}" Margin="15 5 5 5" >
-                <ContentPresenter.Resources>
-                    <DataTemplate DataType="{x:Type domain:TestAssembly}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="10" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" MinWidth="150" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-
-                            <Image Grid.Row="0" Grid.Column="0" Source="/Resources/library_16.png" Height="16" Width="16" />
-                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Name, Mode=OneWay}" FontSize="21" TextDecorations="Underline" />
-
-                            <TextBlock Grid.Row="2" Grid.Column="1" Text="Number of test classes:" />
-                            <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Count, Mode=OneWay}" HorizontalAlignment="Right" />
-
-                            <TextBlock Grid.Row="3" Grid.Column="1" Text="Number of tests:" />
-                            <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding TestCount, Mode=OneWay}" HorizontalAlignment="Right" />
-
-                            <!--<TextBlock Grid.Row="4" Grid.Column="1" Text="Of which succeeded:" />
-                            <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding SucceededTestCount, Mode=OneWay}" HorizontalAlignment="Right" Foreground="Green" />
-                            
-                            <TextBlock Grid.Row="5" Grid.Column="1" Text="Of which failed:" />
-                            <TextBlock Grid.Row="5" Grid.Column="2" Text="{Binding FailedTestCount, Mode=OneWay}" HorizontalAlignment="Right" Foreground="Red" />-->
-
-                        </Grid>
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type domain:TestClass}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="10" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" MinWidth="150" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-
-                            <Image Grid.Row="0" Grid.Column="0" Source="/Resources/class_16.png" Height="16" Width="16" />
-                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Name, Mode=OneWay}" FontSize="21" TextDecorations="Underline" />
-
-                            <TextBlock Grid.Row="2" Grid.Column="1" Text="Number of tests:" />
-                            <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Count, Mode=OneWay}" HorizontalAlignment="Right" />
-
-                            <!--<TextBlock Grid.Row="3" Grid.Column="1" Text="Of which succeeded:" />
-                            <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding SucceededTestCount, Mode=OneWay}" HorizontalAlignment="Right" Foreground="Green" />
-                            
-                            <TextBlock Grid.Row="3" Grid.Column="1" Text="Of which failed:" />
-                            <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding FailedTestCount, Mode=OneWay}" HorizontalAlignment="Right" Foreground="Red" />-->
-
-                        </Grid>
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type domain:Test}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="10" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" MinWidth="150" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-
-                            <Image Grid.Row="0" Grid.Column="0" Source="/Resources/test_16.png" Height="16" Width="16" />
-                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding ReadableName, Mode=OneWay}" FontSize="21" TextDecorations="Underline" />
-
-                            <ContentPresenter Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Content="{Binding TestState, Mode=OneWay}" />
-                        </Grid>
-                    </DataTemplate>
-                </ContentPresenter.Resources>
-            </ContentPresenter>
-		</Grid>
+            <ContentPresenter Grid.Column="2" Content="{Binding ElementName=Tree, Path=SelectedItem}" Margin="15 5 5 5" />
+            
+        </Grid>
 	</DataTemplate>
 
 </ResourceDictionary>
