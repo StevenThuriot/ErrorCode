@@ -129,7 +129,7 @@ namespace ErrorCode.Domain
 
         double RunTest(dynamic test, double interval)
         {
-            var parameters = new dynamic[] { test };
+            var parameters = new[] { test };
             //Warmup
             _caller.Call(parameters);
 
@@ -139,12 +139,14 @@ namespace ErrorCode.Domain
             GC.Collect();
 
             //Testing
-            var watch = Stopwatch.StartNew();
+            var watch = new Stopwatch();
 
             for (var i = 0; i < interval; i++)
+            {
+                watch.Start();
                 _caller.Call(parameters);
-
-            watch.Stop();
+                watch.Stop();
+            }
 
             return watch.Elapsed.TotalMilliseconds;
         }
@@ -153,7 +155,7 @@ namespace ErrorCode.Domain
         {
             try
             {
-                _caller.Call(new dynamic[] { test });
+                _caller.Call(new [] { test });
                 return TestState.Fault("Test did not throw expected Type.");
             }
             catch (Exception ex)
@@ -165,13 +167,13 @@ namespace ErrorCode.Domain
                 {
                     return TestState.Fault("Test did not throw expected Type.");
                 }
-
-                string message = expectedException.ExpectedMessage;
-
-                if (!string.IsNullOrEmpty(message) && ex.Message != message)
-                {
-                    return TestState.Fault("Test threw expected Type, but with an unexpected message.");
-                }
+                
+                //string message = expectedException.ExpectedMessage;
+                //
+                //if (!string.IsNullOrEmpty(message) && ex.Message != message)
+                //{
+                //    return TestState.Fault("Test threw expected Type, but with an unexpected message.");
+                //}
             }
 
             return TestState.Success();
