@@ -4,14 +4,14 @@ using System.Threading.Tasks;
 
 namespace ErrorCode.ViewModels.Commands
 {
-    class RunAllClassTestsCommand : LoadingAsyncCommand<Overview>
+    class RunAllClassTestsCommand : TypedLoadingAsyncCommand<Overview, TestClass>
     {
-        public override bool CanExecute(object parameter) => !App.IsLoading && parameter is TestClass;
+        protected override bool CanExecute(TestClass parameter) => !App.IsLoading;
 
-        protected override Task<bool> OnExecute(object parameter) =>
+        protected override Task<bool> OnExecute(TestClass parameter) =>
             Task.Run(() =>
             {
-                ((TestClass)parameter).Run();
+                parameter.Run();
                 return true;
             });
     }

@@ -16,7 +16,6 @@ namespace ErrorCode.Base
             }
         }
 
-
         protected abstract Task<bool> OnExecute(object parameter);
 
         protected virtual void OnExecuteCompleted(object parameter)

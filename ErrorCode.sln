@@ -1,12 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErrorCode", "ErrorCode\ErrorCode.csproj", "{2A2AC1B5-4F4C-4B3B-9F1E-335D1891170D}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Horizon", "Horizon\Horizon.shproj", "{659F049F-2F56-4BA3-9009-739704AADB18}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Horizon\Horizon.projitems*{659f049f-2f56-4ba3-9009-739704aadb18}*SharedItemsImports = 13
 		Horizon\Horizon.projitems*{2a2ac1b5-4f4c-4b3b-9f1e-335d1891170d}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

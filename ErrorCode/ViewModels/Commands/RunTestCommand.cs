@@ -4,18 +4,15 @@ using System.Threading.Tasks;
 
 namespace ErrorCode.ViewModels.Commands
 {
-    class RunTestCommand : LoadingAsyncCommand<Overview>
+    class RunTestCommand : TypedLoadingAsyncCommand<Overview, Test>
     {
-        public override bool CanExecute(object parameter) => !App.IsLoading && parameter is Test;
+        protected override bool CanExecute(Test parameter) => !App.IsLoading;
 
-        protected override Task<bool> OnExecute(object parameter) =>
+        protected override Task<bool> OnExecute(Test parameter) =>
             Task.Run(() =>
             {
-                var test = ((Test)parameter);
-
-                var instance = test.Parent.CreateTestInstance();
-
-                test.Run(instance);
+                var instance = parameter.Parent.CreateTestInstance();
+                parameter.Run(instance);
 
                 return true;
             });
