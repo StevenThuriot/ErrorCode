@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:ErrorCode.ViewModels"
+                    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                     xmlns:err="clr-namespace:ErrorCode"
                     xmlns:e="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
                     xmlns:domain="clr-namespace:ErrorCode.Domain">
@@ -32,7 +33,7 @@
 
 			<GridSplitter Grid.Column="1" Width="3" ResizeBehavior="PreviousAndNext" ResizeDirection="Columns" />
 
-            <ContentPresenter Grid.Column="2" Content="{Binding ElementName=Tree, Path=SelectedItem}" Margin="15 5 5 5" />
+            <controls:TransitioningContentControl Transition="Right" Grid.Column="2" Content="{Binding ElementName=Tree, Path=SelectedItem}" Margin="15 5 5 5" />            
             
         </Grid>
 	</DataTemplate>
