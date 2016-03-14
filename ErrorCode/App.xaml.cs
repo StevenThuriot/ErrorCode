@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ErrorCode.Base;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Threading;
@@ -13,35 +14,36 @@ namespace ErrorCode
         public static IDisposable Load => new LoadingHelper();
         public static Dispatcher CurrentDispatcher => Current?.Dispatcher;
         public static MainWindow Window => (MainWindow)Current?.MainWindow;
-        
+        public static IViewModel CurrentViewModel => Window?.CurrentViewModel;
+
         public static bool IsLoading
         {
-            get { return Window?.IsLoading ?? false; }
+            get { return CurrentViewModel?.IsLoading ?? false; }
             set
             {
                 var dispatcher = CurrentDispatcher;
-
-                if (dispatcher == null)
+                var viewmodel = CurrentViewModel;
+                if (dispatcher == null || viewmodel == null)
                     return;
-                
+
                 DispatcherPriority priority;
 
                 if (value)
                 {
                     if (dispatcher.CheckAccess())
                     {
-                        Window.IsLoading = value;
+                        viewmodel.IsLoading = value;
                         return;
                     }
 
-                    priority = DispatcherPriority.Send;                    
+                    priority = DispatcherPriority.Send;
                 }
                 else
                 {
                     priority = DispatcherPriority.Loaded;
                 }
-                
-                dispatcher.BeginInvoke(priority, new Action(() => Window.IsLoading = value));
+
+                dispatcher.BeginInvoke(priority, new Action(() => viewmodel.IsLoading = value));
             }
         }
 
@@ -63,7 +65,7 @@ namespace ErrorCode
                 IsLoading = false;
             }
         }
-
+        
 
         public static ObservableCollection<UIElement> LeftWindowControls => (ObservableCollection<UIElement>)(Window.LeftWindowCommands.ItemsSource);
         public static ObservableCollection<UIElement> RightWindowControls => (ObservableCollection<UIElement>)(Window.RightWindowCommands.ItemsSource);

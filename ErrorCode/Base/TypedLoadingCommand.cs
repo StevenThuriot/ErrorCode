@@ -3,7 +3,7 @@
     public abstract class TypedLoadingCommand<T, TType> : LoadingCommand<T>
         where T : ViewModel<T>
     {
-        public sealed override bool CanExecute(object parameter) => parameter is TType && CanExecute((TType)parameter);
+        public sealed override bool CanExecute(object parameter) => base.CanExecute(parameter) && parameter is TType && CanExecute((TType)parameter);
 
         protected sealed override void ExecuteWhileLoading(object parameter) => ExecuteWhileLoading((TType)parameter);
 

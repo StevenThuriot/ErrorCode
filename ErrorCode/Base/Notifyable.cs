@@ -13,7 +13,7 @@ namespace ErrorCode.Base
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        protected bool ChangeProperty<T>(ref T orignal, T value, [CallerMemberName] string propertyName = null)
+        protected bool SetValue<T>(ref T orignal, T value, [CallerMemberName] string propertyName = null)
         {
             if (EqualityComparer<T>.Default.Equals(orignal, value))
                 return false;

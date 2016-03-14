@@ -5,7 +5,7 @@ namespace ErrorCode.Base
     public abstract class TypedLoadingAsyncCommand<T, TType> : LoadingAsyncCommand<T>
         where T : ViewModel<T>
     {
-        public sealed override bool CanExecute(object parameter) => parameter is TType && CanExecute((TType)parameter);
+        public sealed override bool CanExecute(object parameter) => base.CanExecute(parameter) && parameter is TType && CanExecute((TType)parameter);
 
         protected sealed override Task<bool> OnExecute(object parameter) => OnExecute((TType)parameter);
         

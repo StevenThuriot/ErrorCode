@@ -5,7 +5,7 @@ namespace ErrorCode.ViewModels.Commands
 {
     class RunAllTestsCommand : LoadingAsyncCommand<Overview>
     {
-        public override bool CanExecute(object parameter) => !App.IsLoading;
+        public override bool CanExecute(object parameter) => !ViewModel.IsLoading;
 
         protected override Task<bool> OnExecute(object parameter) =>
             Task.Run(() =>

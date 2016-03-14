@@ -17,7 +17,7 @@ namespace ErrorCode.Domain
         public TestState TestState
         {
             get { return _testState; }
-            set { ChangeProperty(ref _testState, value); }
+            set { SetValue(ref _testState, value); }
         }
 
         public TestClass Parent { get; }

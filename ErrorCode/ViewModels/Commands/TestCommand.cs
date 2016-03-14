@@ -6,7 +6,7 @@ namespace ErrorCode.ViewModels.Commands
 {
     class TestCommand : LoadingCommand<Overview>
     {
-        public override bool CanExecute(object parameter) => !App.IsLoading && (parameter is TestAssembly || parameter is TestClass || parameter is Test);
+        public override bool CanExecute(object parameter) => base.CanExecute(parameter) && !ViewModel.IsLoading && (parameter is TestAssembly || parameter is TestClass || parameter is Test);
 
 
         protected override void ExecuteWhileLoading(object parameter)
