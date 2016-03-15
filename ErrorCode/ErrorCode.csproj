@@ -76,6 +76,7 @@
     <Compile Include="Discover.cs" />
     <Compile Include="Domain\Constants.cs" />
     <Compile Include="Domain\FaultyTestState.cs" />
+    <Compile Include="Domain\NotRunTestState.cs" />
     <Compile Include="Domain\RunningTestState.cs" />
     <Compile Include="Domain\SuccessfulTestState.cs" />
     <Compile Include="Domain\Test.cs" />

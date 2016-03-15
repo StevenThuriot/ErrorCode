@@ -91,6 +91,29 @@
 
 
 
+    <DataTemplate DataType="{x:Type domain:NotRunTestState}">
+        <Grid Width="{err:PaddingBinding}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Row="0" Grid.Column="0" Background="#d5dae2" BorderBrush="#57687f" BorderThickness="1">
+                <TextBlock Foreground="#57687f" 
+                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                           FontWeight="Bold"
+                           >
+                    Test still has to run.
+                </TextBlock>
+            </Border>
+
+        </Grid>
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type domain:RunningTestState}">
         <Grid Width="{err:PaddingBinding}">
             <Grid.RowDefinitions>

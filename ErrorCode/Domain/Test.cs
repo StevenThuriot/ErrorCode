@@ -13,7 +13,7 @@ namespace ErrorCode.Domain
         readonly Attribute _expException;
         readonly IMethodCaller _caller;
 
-        TestState _testState;
+        TestState _testState = NotRunTestState.Instance;
         public TestState TestState
         {
             get { return _testState; }

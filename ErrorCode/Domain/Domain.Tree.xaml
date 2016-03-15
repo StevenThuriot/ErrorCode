@@ -96,7 +96,7 @@
             <DataTrigger Binding="{Binding TestState.Running}" Value="True">
                 <Setter TargetName="_icon" Property="Source" Value="/Resources/test_16_running.png" />
             </DataTrigger>
-            <DataTrigger Binding="{Binding TestState}" Value="{x:Null}">
+            <DataTrigger Binding="{Binding TestState}" Value="{x:Static domain:NotRunTestState.Instance}">
                 <Setter TargetName="_icon" Property="Source" Value="/Resources/test_16.png" />
             </DataTrigger>
         </DataTemplate.Triggers>
