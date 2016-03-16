@@ -2,6 +2,6 @@
 {
     static class Constants
     {
-        public const double DefaultInterval = 100D;
+        public const int DefaultInterval = 100;
     }
 }

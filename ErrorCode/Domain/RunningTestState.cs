@@ -5,17 +5,24 @@ namespace ErrorCode.Domain
     class RunningTestState : TestState
     {
         public RunningTestState()
-            : base("Test Running")
+            : this(1)
         {
         }
 
-        public RunningTestState(string message)
+        public RunningTestState(int interval)
+           : this("Test Running", interval)
+        {
+        }
+
+        public RunningTestState(string message, int interval)
             : base(message)
         {
+            Interval = interval;
         }
 
         public override bool Succeeded => false;
         public override bool Running => true;
         public DateTime StartTime { get; } = DateTime.Now;
+        public int Interval { get; }
     }
 }

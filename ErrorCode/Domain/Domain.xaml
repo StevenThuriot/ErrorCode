@@ -119,6 +119,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" />
                 <RowDefinition Height="10" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -137,6 +139,12 @@
             <TextBlock TextWrapping="Wrap" Grid.Row="2" Grid.Column="0" >
                 <Run Text="Running since:" />
                 <Run Text="{Binding StartTime, Mode=OneWay}" FontWeight="Bold" />
+            </TextBlock>
+
+            <TextBlock TextWrapping="Wrap" Grid.Row="3" Grid.Column="0">
+                <Run Text="Interval:" />
+                <Run Text="{Binding Interval, Mode=OneWay}" FontWeight="Bold" />
+                <Run Text="time(s)" />
             </TextBlock>
         </Grid>
     </DataTemplate>
@@ -172,14 +180,11 @@
                 <RowDefinition Height="10" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="180" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
 
-            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
+            <Border Grid.Row="0" Grid.Column="0"
                     Background="#DFF2BF" BorderBrush="#4F8A10" BorderThickness="1">
                 <TextBlock Foreground="#4F8A10" 
                            HorizontalAlignment="Center" VerticalAlignment="Center"
@@ -189,10 +194,18 @@
                 </TextBlock>
             </Border>
 
-            <TextBlock TextWrapping="Wrap" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Message, Mode=OneWay}" />
+            <TextBlock TextWrapping="Wrap" Grid.Row="2" Grid.Column="0" Text="{Binding Message, Mode=OneWay}" />
 
-            <TextBlock Grid.Row="3" Grid.Column="0">Average Runtime:</TextBlock>
-            <TextBlock TextWrapping="Wrap" Grid.Row="3" Grid.Column="1" Text="{Binding Average, Mode=OneWay}" />
+            <TextBlock TextWrapping="Wrap" Grid.Row="2" Grid.Column="0" >
+                <Run Text="Average Runtime:" />
+                <Run Text="{Binding Average, Mode=OneWay}" FontWeight="Bold" />
+            </TextBlock>
+
+            <TextBlock TextWrapping="Wrap" Grid.Row="3" Grid.Column="0">
+                <Run Text="Interval:" />
+                <Run Text="{Binding Interval, Mode=OneWay}" FontWeight="Bold" />
+                <Run Text="time(s)" />
+            </TextBlock>            
         </Grid>
     </DataTemplate>
 </ResourceDictionary>

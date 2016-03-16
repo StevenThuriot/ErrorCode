@@ -85,7 +85,7 @@ namespace ErrorCode.Domain
             return builder.ToString();
         }
 
-        public void Run(dynamic testClass, double interval = Constants.DefaultInterval)
+        public void Run(dynamic testClass, int interval = Constants.DefaultInterval)
         {
             if (!IsTestable)
             {
@@ -95,7 +95,7 @@ namespace ErrorCode.Domain
 
             try
             {
-                TestState = new RunningTestState();
+                TestState = new RunningTestState(interval);
 
 #if DEBUG
                 System.Threading.Thread.Sleep(2500);
@@ -110,7 +110,7 @@ namespace ErrorCode.Domain
                     double totalMilliseconds = RunTest(testClass, interval);
                     var average = totalMilliseconds / interval;
 
-                    TestState = TestState.Success(average);
+                    TestState = TestState.Success(average, interval);
                 }
             }
             catch (Exception ex)
@@ -127,7 +127,7 @@ namespace ErrorCode.Domain
             }
         }
 
-        double RunTest(dynamic test, double interval)
+        double RunTest(dynamic test, int interval)
         {
             var parameters = new[] { test };
             //Warmup
