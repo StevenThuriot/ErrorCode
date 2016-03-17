@@ -4,6 +4,7 @@
                     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                     xmlns:err="clr-namespace:ErrorCode"
                     xmlns:e="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                     xmlns:domain="clr-namespace:ErrorCode.Domain">
 
 
@@ -18,10 +19,13 @@
             <TreeView Grid.Column="0" x:Name="Tree"
                       ItemsSource="{Binding Tests, Mode=OneWay}"
                       AlternationCount="2">
-
-                <!--<e:Interaction.Behaviors>
-                    <err:BindableSelectedItemBehavior SelectedItem="{Binding SelectedItem, Mode=TwoWay}" />
-                </e:Interaction.Behaviors>-->
+                
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectedItemChanged">
+                        <i:InvokeCommandAction Command="{Binding Commands.SetSelectedItem, Mode=OneWay}" CommandParameter="{Binding ElementName=Tree, Path=SelectedItem}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                
                 <TreeView.Resources>
                     <ResourceDictionary>
                         <ResourceDictionary.MergedDictionaries>
@@ -33,7 +37,7 @@
 
 			<GridSplitter Grid.Column="1" Width="3" ResizeBehavior="PreviousAndNext" ResizeDirection="Columns" />
 
-            <controls:TransitioningContentControl Transition="Right" Grid.Column="2" Content="{Binding ElementName=Tree, Path=SelectedItem}" Margin="15 5 5 5" />
+            <controls:TransitioningContentControl Transition="Right" Grid.Column="2" Content="{Binding SelectedItem, Mode=OneWay}" Margin="15 5 5 5" />
 
 
             <Grid Margin="0" Visibility="{Binding IsLoadingVisibility, Mode=OneWay}" 

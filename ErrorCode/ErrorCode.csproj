@@ -90,6 +90,7 @@
     <Compile Include="ViewModels\Commands\RunAllClassTestsCommand.cs" />
     <Compile Include="ViewModels\Commands\RunAllTestsCommand.cs" />
     <Compile Include="ViewModels\Commands\RunTestCommand.cs" />
+    <Compile Include="ViewModels\Commands\SetSelectedItemCommand.cs" />
     <Compile Include="ViewModels\Commands\TestCommand.cs" />
     <Compile Include="ViewModels\Overview.cs" />
     <Page Include="Domain\Domain.Tree.xaml">

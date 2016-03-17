@@ -31,5 +31,12 @@ namespace ErrorCode.ViewModels
         }
 
         public IEnumerable<TestAssembly> Tests { get; }
+
+        object _selectedItem;
+        public object SelectedItem
+        {
+            get { return _selectedItem; }
+            set { SetValue(ref _selectedItem, value); }
+        }
     }
 }
