@@ -2,12 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using ErrorCode.Base;
 using ErrorCode.Extensions;
 using Horizon;
 
 namespace ErrorCode.Domain
 {
-    class TestClass : IReadOnlyList<Test>
+    class TestClass : SelectableItem, IReadOnlyList<Test>
     {
         readonly IReadOnlyList<Test> _tests;
         readonly Type _type;
@@ -29,6 +30,12 @@ namespace ErrorCode.Domain
 
         public IReadOnlyList<TestState> Run(int interval = Constants.DefaultInterval)
         {
+            var expanded = IsExpanded;
+            var selected = IsSelected;
+
+            IsExpanded = true;
+            IsSelected = true;
+
             object instance = CreateTestInstance();
 
             var result = new TestState[_tests.Count];
@@ -40,6 +47,9 @@ namespace ErrorCode.Domain
 
                 result[i] = test.TestState;
             }
+
+            IsExpanded = expanded;
+            IsSelected = selected;
 
             return result;
         }

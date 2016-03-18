@@ -8,7 +8,7 @@ using System.Text;
 
 namespace ErrorCode.Domain
 {
-    class Test : Notifyable
+    class Test : SelectableItem
     {
         readonly Attribute _expException;
         readonly IMethodCaller _caller;
@@ -87,6 +87,13 @@ namespace ErrorCode.Domain
 
         public void Run(dynamic testClass, int interval = Constants.DefaultInterval)
         {
+            var expanded = IsExpanded;
+            var selected = IsSelected;
+
+            IsExpanded = true;
+            IsSelected = true;
+
+
             if (!IsTestable)
             {
                 TestState = TestState.Fault("Untestable.");
@@ -124,6 +131,9 @@ namespace ErrorCode.Domain
                 {
                     TestState = null;
                 }
+                
+                IsExpanded = expanded;
+                IsSelected = selected;
             }
         }
 

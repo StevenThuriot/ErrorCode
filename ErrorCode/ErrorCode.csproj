@@ -83,6 +83,7 @@
     <Compile Include="Domain\TestAssembly.cs" />
     <Compile Include="Domain\TestClass.cs" />
     <Compile Include="Domain\TestState.cs" />
+    <Compile Include="Base\SelectableItem.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="PaddingBinding.cs" />
     <Compile Include="PaddingConverter.cs" />
