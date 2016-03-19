@@ -19,7 +19,7 @@ namespace ErrorCode.Domain
 
             _tests = assembly.GetTypes()
                              .Where(x => x.CustomAttributes.Any(a => a.AttributeType.Name == "TestClassAttribute"))
-                             .Select(x => new TestClass(x))
+                             .Select(x => new TestClass(this, x))
                              .ToArray();
         }
 

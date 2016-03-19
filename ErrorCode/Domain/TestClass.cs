@@ -8,7 +8,7 @@ using Horizon;
 
 namespace ErrorCode.Domain
 {
-    class TestClass : SelectableItem, IReadOnlyList<Test>
+    class TestClass : SelectableItem<TestAssembly>, IReadOnlyList<Test>
     {
         readonly IReadOnlyList<Test> _tests;
         readonly Type _type;
@@ -16,7 +16,8 @@ namespace ErrorCode.Domain
         public string Name { get; }
 
 
-        public TestClass(Type type)
+        public TestClass(TestAssembly parent, Type type)
+            : base (parent)
         {
             _type = type;
             Name = type.Name.AsReadable();

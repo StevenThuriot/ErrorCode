@@ -15,7 +15,7 @@ namespace ErrorCode.ViewModels.Commands
                             test.Run();
 
 
-                        if (ViewModel.Tests.All(x => !x.IsSelected))
+                        if (ViewModel.Tests.All(x => !x.IsSelected && !x.IsExpanded))
                             ViewModel.Tests.First().IsSelected = true;
 
                         return true;

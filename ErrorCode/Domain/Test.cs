@@ -8,7 +8,7 @@ using System.Text;
 
 namespace ErrorCode.Domain
 {
-    class Test : SelectableItem
+    class Test : SelectableItem<TestClass>
     {
         readonly Attribute _expException;
         readonly IMethodCaller _caller;
@@ -19,19 +19,15 @@ namespace ErrorCode.Domain
             get { return _testState; }
             set { SetValue(ref _testState, value); }
         }
-
-        public TestClass Parent { get; }
+        
 
         public Test(TestClass parent, IMethodCaller caller)
+            : base (parent)
         {
-            if (parent == null)
-                throw new ArgumentNullException(nameof(parent));
-
             if (caller == null)
                 throw new ArgumentNullException(nameof(caller));
             
             _caller = caller;
-            Parent = parent;
 
             var comparer = StringComparer.OrdinalIgnoreCase;
 
