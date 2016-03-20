@@ -5,10 +5,11 @@ using System.Linq;
 using ErrorCode.Base;
 using ErrorCode.Extensions;
 using Horizon;
+using System.ComponentModel;
 
 namespace ErrorCode.Domain
 {
-    class TestClass : SelectableItem<TestAssembly>, IReadOnlyList<Test>
+    class TestClass : SelectableItem, IReadOnlyList<Test>
     {
         readonly IReadOnlyList<Test> _tests;
         readonly Type _type;
@@ -17,8 +18,15 @@ namespace ErrorCode.Domain
 
 
         public TestClass(TestAssembly parent, Type type)
-            : base (parent)
         {
+            if (parent == null)
+                throw new NullReferenceException(nameof(parent));
+
+            if (type == null)
+                throw new ArgumentNullException(nameof(type));
+
+            Parent = parent;
+
             _type = type;
             Name = type.Name.AsReadable();
 
@@ -63,6 +71,17 @@ namespace ErrorCode.Domain
 
         public int Count => _tests.Count;
 
+        public TestAssembly Parent { get; }
+
         public Test this[int index] => _tests[index];
+
+        public int TestsRun => _tests.Count(x => x.TestState != NotRunTestState.Instance);
+        public int TestsSucceeded => _tests.Where(x => x.TestState != NotRunTestState.Instance && !x.TestState.Running).Count(x => x.TestState.Succeeded);
+        public int TestsFailed    => _tests.Where(x => x.TestState != NotRunTestState.Instance && !x.TestState.Running).Count(x => !x.TestState.Succeeded);
+
+        public void NotifyChanges()
+        {
+            OnPropertiesChanged(nameof(TestsRun), nameof(TestsSucceeded), nameof(TestsFailed));
+        }
     }
 }

@@ -32,35 +32,11 @@ namespace ErrorCode.Base
                 SetValue(ref _isSelected, value);
             }
         }
-    }
 
-    public abstract class SelectableItem<T> : SelectableItem
-        where T : SelectableItem
-    {
-
-        public T Parent { get; }
-        public SelectableItem(T parent)
+        public void Select()
         {
-            if (parent == null)
-                throw new ArgumentNullException(nameof(parent));
-
-            Parent = parent;
+            IsSelected = true;
+            IsExpanded = true;
         }
-
-        public override bool IsSelected
-        {
-            get
-            {
-                return _isSelected;
-            }
-
-            set
-            {
-                if (SetValue(ref _isSelected, value) && value)
-                {
-                    Parent.IsSelected = true;
-                }
-            }
-        }
-    }
+    }    
 }

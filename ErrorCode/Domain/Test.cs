@@ -8,7 +8,7 @@ using System.Text;
 
 namespace ErrorCode.Domain
 {
-    class Test : SelectableItem<TestClass>
+    class Test : SelectableItem
     {
         readonly Attribute _expException;
         readonly IMethodCaller _caller;
@@ -22,11 +22,14 @@ namespace ErrorCode.Domain
         
 
         public Test(TestClass parent, IMethodCaller caller)
-            : base (parent)
         {
+            if (parent == null)
+                throw new NullReferenceException(nameof(parent));
+
             if (caller == null)
                 throw new ArgumentNullException(nameof(caller));
-            
+
+            Parent = parent;
             _caller = caller;
 
             var comparer = StringComparer.OrdinalIgnoreCase;
@@ -45,6 +48,8 @@ namespace ErrorCode.Domain
         public string Name => _caller.Name;
         
         public string ReadableName => AsReadable(Name);
+
+        public TestClass Parent { get; }
 
         static string AsReadable(string text)
         {
@@ -130,6 +135,8 @@ namespace ErrorCode.Domain
                 
                 IsExpanded = expanded;
                 IsSelected = selected;
+
+                Parent.NotifyChanges();
             }
         }
 

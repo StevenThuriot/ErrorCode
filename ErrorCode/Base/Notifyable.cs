@@ -13,6 +13,16 @@ namespace ErrorCode.Base
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        protected void OnPropertiesChanged(params string[] propertyNames)
+        {
+            var @event = PropertyChanged;
+            if (@event != null)
+            {
+                foreach (var propertyName in propertyNames)
+                    @event.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
         protected bool SetValue<T>(ref T orignal, T value, [CallerMemberName] string propertyName = null)
         {
             if (EqualityComparer<T>.Default.Equals(orignal, value))
