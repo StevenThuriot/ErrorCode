@@ -51,5 +51,14 @@ namespace ErrorCode.Domain
         public int TestCount => _tests.SelectMany(x => x).Count();
 
         public TestClass this[int index] => _tests[index];
+        
+        public int TestsRun => _tests.Sum(x => x.TestsRun);
+        public int TestsSucceeded => _tests.Sum(x => x.TestsSucceeded);
+        public int TestsFailed => _tests.Sum(x => x.TestsFailed);
+
+        public void NotifyChanges()
+        {
+            OnPropertiesChanged(nameof(TestsRun), nameof(TestsSucceeded), nameof(TestsFailed));
+        }
     }
 }

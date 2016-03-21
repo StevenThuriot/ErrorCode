@@ -13,6 +13,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -30,11 +31,14 @@
             <TextBlock Grid.Row="3" Grid.Column="1" Text="Number of tests:" />
             <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding TestCount, Mode=OneWay}" HorizontalAlignment="Right" />
 
-            <!--<TextBlock Grid.Row="4" Grid.Column="1" Text="Of which succeeded:" />
-                            <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding SucceededTestCount, Mode=OneWay}" HorizontalAlignment="Right" Foreground="Green" />
-                            
-                            <TextBlock Grid.Row="5" Grid.Column="1" Text="Of which failed:" />
-                            <TextBlock Grid.Row="5" Grid.Column="2" Text="{Binding FailedTestCount, Mode=OneWay}" HorizontalAlignment="Right" Foreground="Red" />-->
+            <TextBlock Grid.Row="4" Grid.Column="1" Text="Of which already ran:" />
+            <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding TestsRun, Mode=OneWay}" HorizontalAlignment="Right" Foreground="Green" />
+
+            <TextBlock Grid.Row="5" Grid.Column="1" Text="And Succeeded:" />
+            <TextBlock Grid.Row="5" Grid.Column="2" Text="{Binding TestsSucceeded, Mode=OneWay}" HorizontalAlignment="Right" Foreground="Green" />
+
+            <TextBlock Grid.Row="6" Grid.Column="1" Text="And Failed:" />
+            <TextBlock Grid.Row="6" Grid.Column="2" Text="{Binding TestsFailed, Mode=OneWay}" HorizontalAlignment="Right" Foreground="Red" />
 
         </Grid>
     </DataTemplate>

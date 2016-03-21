@@ -82,6 +82,7 @@ namespace ErrorCode.Domain
         public void NotifyChanges()
         {
             OnPropertiesChanged(nameof(TestsRun), nameof(TestsSucceeded), nameof(TestsFailed));
+            Parent.NotifyChanges();
         }
     }
 }
