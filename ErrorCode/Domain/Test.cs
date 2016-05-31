@@ -106,7 +106,7 @@ namespace ErrorCode.Domain
                 TestState = new RunningTestState(interval);
 
 #if DEBUG
-                System.Threading.Thread.Sleep(2500);
+                //System.Threading.Thread.Sleep(2500);
 #endif
 
                 if (_expException != null)
@@ -180,13 +180,19 @@ namespace ErrorCode.Domain
                 {
                     return TestState.Fault("Test did not throw expected Type.");
                 }
-                
-                //string message = expectedException.ExpectedMessage;
-                //
-                //if (!string.IsNullOrEmpty(message) && ex.Message != message)
-                //{
-                //    return TestState.Fault("Test threw expected Type, but with an unexpected message.");
-                //}
+
+                try
+                {
+                    var message = (string)Horizon.Info.Call(expectedException, "GetNoExceptionMessage");
+                    if (!string.IsNullOrEmpty(message) && ex.Message != message)
+                    {
+                        return TestState.Fault("Test threw expected Type, but with an unexpected message.");
+                    }
+                }
+                catch
+                {
+                    //ignore if something goes wrong;
+                }
             }
 
             return TestState.Success();
